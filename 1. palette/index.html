@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Codejam Canvas</title>
+    <link rel="stylesheet" href="./src/style.css">
+    <meta name="viewport" content="width=device-width">
+</head>
+
+<body>
+    <header>
+        <span class="icon-burger"></span>
+        <h1>CodeJam - Pallete</h1>
+        <span class="icon-three-dots"></span>
+    </header>
+    <main>
+        <div class="tools panel">
+            <div class="panel-item">
+                <span class="icon-paint-bucket"></span>
+                <p>Paint bucket</p>
+            </div>
+            <div class="panel-item">
+                <span class="icon-pocker"></span>
+                <p>Choose color</p>
+            </div>
+            <hr>
+            <div class="panel-item">
+                <span class="icon-arrow-up-down"></span>
+                <p>Move</p>
+            </div>
+            <div class="panel-item">
+                <span class="icon-arrow-back-forth"></span>
+                <p>Transform</p>
+            </div>
+
+        </div>
+        <div class="colors panel">
+            <div class="panel-item">
+                <div class="colors__circle gray"></div>
+                <p>Current color</p>
+            </div>
+            <div class="panel-item">
+                <div class="colors__circle green"></div>
+                <p>Prev color</p>
+            </div>
+            <hr>
+            <div class="panel-item">
+                <div class="colors__circle red"></div>
+                <p>Red</p>
+            </div>
+            <div class="panel-item">
+                <div class="colors__circle blue"></div>
+                <p>Blue</p>
+            </div>
+
+        </div>
+        <div class="canvases">
+            <canvas id="canvas_4x4" class="4x4 show" width="512" height="512"></canvas>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>
