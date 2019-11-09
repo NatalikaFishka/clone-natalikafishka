@@ -10,11 +10,11 @@
 
 @font-face {
     font-family: 'icomoon';
-    src:  url('../assets/fonts/icons/icomoon.eot?z66f2i');
-    src:  url('../assets/fonts/icons/icomoon.eot?z66f2i#iefix') format('embedded-opentype'),
-      url('../assets/fonts/icons/icomoon.ttf?z66f2i') format('truetype'),
-      url('../assets/fonts/icons/icomoon.woff?z66f2i') format('woff'),
-      url('../assets/fonts/icons/icomoon.svg?z66f2i#icomoon') format('svg');
+    src:  url('../assets/fonts/icons/icomoon.eot?53cn1s');
+    src:  url('../assets/fonts/icons/icomoon.eot?53cn1s#iefix') format('embedded-opentype'),
+      url('../assets/fonts/icons/icomoon.ttf?53cn1s') format('truetype'),
+      url('../assets/fonts/icons/icomoon.woff?53cn1s') format('woff'),
+      url('../assets/fonts/icons/icomoon.svg?53cn1s#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
     font-display: block;
@@ -47,11 +47,14 @@
   .icon-paint-bucket:before {
     content: "\e903";
   }
-  .icon-pocker:before {
+  .icon-pencil:before {
     content: "\e904";
   }
-  .icon-three-dots:before {
+  .icon-pocker:before {
     content: "\e905";
+  }
+  .icon-three-dots:before {
+    content: "\e906";
   }
 
 * {
@@ -86,9 +89,9 @@ header {
 }
 
 main {
-    padding-top: 3rem;;
+    padding-top: 5rem;;
     display: grid;
-    grid-template: 1fr 1fr / 30% 70%;
+    grid-template: 1fr 1fr / 20% 60% 20%;
     align-items: center;
     justify-items: center;
 
@@ -107,19 +110,19 @@ main {
               
     }
 
-    .switcher {
-        grid-row: 1 / 2;
-        grid-column: 3 / 4;
-        input {
-            margin-right: 1rem;
-            &:hover {
-                cursor: pointer;
-            }
-        }
-        label:hover {
-            cursor: pointer;
-        }
-    }
+    // .switcher {
+    //     grid-row: 1 / 2;
+    //     grid-column: 3 / 4;
+    //     input {
+    //         margin-right: 1rem;
+    //         &:hover {
+    //             cursor: pointer;
+    //         }
+    //     }
+    //     label:hover {
+    //         cursor: pointer;
+    //     }
+    // }
 
     .panel {
         border: 1px solid lightgray;      
@@ -164,10 +167,30 @@ main {
             
             span {
                 margin-right: 2rem;
+                // &:hover {
+                //     cursor: pointer;
+                // }
+            }
+            label {               
                 &:hover {
                     cursor: pointer;
                 }
             }
+
+            input[type="radio" i]{
+                display: none;
+            }
+
+            input[disabled] + label {
+                color: grey;
+                cursor: default;
+            }
+
+            input[checked] + label span {
+                color: red;
+            }
+
+            
         }
     }
 

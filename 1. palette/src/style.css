@@ -8,8 +8,8 @@
 
 @font-face {
   font-family: 'icomoon';
-  src: url("../assets/fonts/icons/icomoon.eot?z66f2i");
-  src: url("../assets/fonts/icons/icomoon.eot?z66f2i#iefix") format("embedded-opentype"), url("../assets/fonts/icons/icomoon.ttf?z66f2i") format("truetype"), url("../assets/fonts/icons/icomoon.woff?z66f2i") format("woff"), url("../assets/fonts/icons/icomoon.svg?z66f2i#icomoon") format("svg");
+  src: url("../assets/fonts/icons/icomoon.eot?53cn1s");
+  src: url("../assets/fonts/icons/icomoon.eot?53cn1s#iefix") format("embedded-opentype"), url("../assets/fonts/icons/icomoon.ttf?53cn1s") format("truetype"), url("../assets/fonts/icons/icomoon.woff?53cn1s") format("woff"), url("../assets/fonts/icons/icomoon.svg?53cn1s#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -45,12 +45,16 @@
   content: "\e903";
 }
 
-.icon-pocker:before {
+.icon-pencil:before {
   content: "\e904";
 }
 
-.icon-three-dots:before {
+.icon-pocker:before {
   content: "\e905";
+}
+
+.icon-three-dots:before {
+  content: "\e906";
 }
 
 * {
@@ -93,12 +97,12 @@ header span:hover {
 }
 
 main {
-  padding-top: 3rem;
+  padding-top: 5rem;
   display: -ms-grid;
   display: grid;
   -ms-grid-rows: 1fr 1fr;
-  -ms-grid-columns: 30% 70%;
-      grid-template: 1fr 1fr / 30% 70%;
+  -ms-grid-columns: 20% 60% 20%;
+      grid-template: 1fr 1fr / 20% 60% 20%;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -130,27 +134,6 @@ main .canvases {
   -ms-grid-column: 2;
   -ms-grid-column-span: 1;
   grid-column: 2 / 3;
-}
-
-main .switcher {
-  -ms-grid-row: 1;
-  -ms-grid-row-span: 1;
-  grid-row: 1 / 2;
-  -ms-grid-column: 3;
-  -ms-grid-column-span: 1;
-  grid-column: 3 / 4;
-}
-
-main .switcher input {
-  margin-right: 1rem;
-}
-
-main .switcher input:hover {
-  cursor: pointer;
-}
-
-main .switcher label:hover {
-  cursor: pointer;
 }
 
 main .panel {
@@ -207,8 +190,21 @@ main .panel .panel-item span {
   margin-right: 2rem;
 }
 
-main .panel .panel-item span:hover {
+main .panel .panel-item label:hover {
   cursor: pointer;
+}
+
+main .panel .panel-item input[type="radio" i] {
+  display: none;
+}
+
+main .panel .panel-item input[disabled] + label {
+  color: grey;
+  cursor: default;
+}
+
+main .panel .panel-item input[checked] + label span {
+  color: red;
 }
 
 main canvas {
