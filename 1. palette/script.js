@@ -27,11 +27,52 @@ function fillCanvas(data) {
     }
 }
 
-fillCanvas(data);
-// Select the tool
+// Load data from local storage if any
 
-let selectedTool = "pencil";
-let selectedColor = 'rgba(128,128,128,1)';
+if (localStorage.getItem('canvas')) {
+    let customData = localStorage.getItem('canvas');
+    customData = customData.replace(/\)/gm, "))");
+    customData = customData.substr(0, customData.length - 1);
+    customData = customData.split('),')
+    let finalCustomData = [];
+    while (customData.length > 0) {
+        finalCustomData.push(customData.splice(0, 4));
+    }
+    fillCanvas(finalCustomData);
+} else {
+    fillCanvas(data);
+}
+
+let selectedTool;
+let selectedColor;
+
+if (localStorage.getItem('tool')) {
+    selectedTool = localStorage.getItem('tool');
+    document.getElementById(selectedTool).setAttribute('checked', '');
+} else {
+    selectedTool = "pencil";
+    document.getElementById(selectedTool).setAttribute('checked', '');
+}
+
+
+if (localStorage.getItem('color')) {
+    selectedColor = localStorage.getItem('color');
+    document.getElementById('current-color').style.background = selectedColor;
+} else {
+    selectedColor = 'rgba(128,128,128,1)';
+    document.getElementById('current-color').style.background = selectedColor;
+}
+
+// Set color
+
+let currentColor = document.getElementById('current-color');
+let currentInputColor = document.getElementById('current-color-input');
+currentInputColor.addEventListener('change', (e) => {
+    selectedColor = e.target.value;
+    currentColor.style.background = selectedColor;
+});
+
+// Select the tool
 
 const selectedTools = (tool) => {
     for (let i = 0; i < tool.length; i++) {
@@ -62,16 +103,6 @@ canvas_4x4.addEventListener('mouseover', () => {
             canvas_4x4.style.cursor = 'url(assets/cursors/color-picker.png), default';
             break;
     }
-});
-
-
-// Set color
-
-let currentColor = document.getElementById('current-color');
-let currentInputColor = document.getElementById('current-color-input');
-currentInputColor.addEventListener('change', (e) => {
-    selectedColor = e.target.value;
-    currentColor.style.background = selectedColor;
 });
 
 // Draw with pencil
@@ -117,7 +148,7 @@ function colorsMatch(a, b) {
     return a === b;
 }
 
-function floodFill(ctx, x, y, fillColor) {
+function imageConverter() {
     const bigImageData = ctx.getImageData(0, 0, canvas_4x4.width, canvas_4x4.width).data;
     let imageData = [];
     let stepYLimit = canvas_4x4.height * canvas_4x4.width * 4;
@@ -128,6 +159,12 @@ function floodFill(ctx, x, y, fillColor) {
             imageData.push(`rgba(${bigImageData[stepX + 0]},${bigImageData[stepX + 1]},${bigImageData[stepX + 2]},${(bigImageData[stepX + 3] / 255)})`);
         }
     }
+    return imageData;
+}
+
+function floodFill(x, y, fillColor) {
+
+    let imageData = imageConverter();
     const targetColor = getPixel(imageData, x, y);
     if (!colorsMatch(targetColor, fillColor)) {
         fillPixel(imageData, x, y, targetColor, fillColor);
@@ -150,11 +187,8 @@ function fillPixel(imageData, x, y, targetColor, fillColor) {
         fillPixel(imageData, x - scaleX, y, targetColor, fillColor);
         fillPixel(imageData, x, y + scaleY, targetColor, fillColor);
         fillPixel(imageData, x, y - scaleY, targetColor, fillColor);
-
     }
-
 }
-
 
 // Handle mouse events
 
@@ -168,17 +202,16 @@ canvas_4x4.addEventListener('mousedown', (e) => {
             let startX = e.offsetX;
             let startY = e.offsetY;
 
-            floodFill(ctx, startX, startY, selectedColor);
+            floodFill(startX, startY, selectedColor);
             break;
         case 'color-picker':
             pickColor(e);
             break;
-
     }
 });
+
 canvas_4x4.addEventListener('mousemove', pencilDraw);
 document.addEventListener('mouseup', () => isDrawing = false);
-
 
 // Handle keyboad events
 
@@ -209,3 +242,11 @@ document.addEventListener('keydown', function (e) {
         }
     }
 })
+
+// Save data to lacel storage
+
+document.addEventListener('click', () => {
+    localStorage.setItem('canvas', imageConverter());
+    localStorage.setItem('tool', selectedTool);
+    localStorage.setItem('color', selectedColor);
+});
