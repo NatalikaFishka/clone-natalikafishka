@@ -182,5 +182,30 @@ document.addEventListener('mouseup', () => isDrawing = false);
 
 // Handle keyboad events
 
+document.addEventListener('keydown', function (e) {
+    if (e.code === 'KeyP' || e.code === 'KeyC' || e.code === 'KeyB') {
+        console.log(tool)
+        console.log(document.getElementById('pencil'))
 
+        for (k = 0; k < tool.length; k++) {
+            tool[k].removeAttribute('checked');
+        };
 
+        switch (e.code) {
+            case 'KeyP':
+                selectedTool = document.getElementById('pencil').value;
+                document.getElementById('pencil').setAttribute('checked', '');
+                break;
+            case 'KeyB':
+                selectedTool = document.getElementById('paint-bucket').value;
+                document.getElementById('paint-bucket').setAttribute('checked', '');
+                break;
+            case 'KeyC':
+                selectedTool = document.getElementById('color-picker').value;
+                document.getElementById('color-picker').setAttribute('checked', '');
+                break;
+            default:
+                break;
+        }
+    }
+})
