@@ -22,7 +22,9 @@ for (let row = 0; row < height; row++) {
     }
 }
 
-let selectedTool;
+let selectedTool = "pencil";
+let selectedColor = '#808080';
+
 const selectedTools = (tool) => {
     for (let i = 0; i < tool.length; i++) {
         tool[i].addEventListener('click', function () {
@@ -44,7 +46,7 @@ function pencilDraw(e) {
         if (!isDrawing) return;
         let x = Math.floor(e.offsetX / scaleX);
         let y = Math.floor(e.offsetY / scaleY);
-        ctx.fillStyle = "#000000";
+        ctx.fillStyle = selectedColor;
         ctx.fillRect(x * scaleX, y * scaleY, scaleX, scaleY);
     }
 }
@@ -61,3 +63,34 @@ document.addEventListener('mouseup', () => isDrawing = false);
 
 let tool = document.querySelectorAll('.tool');
 selectedTools(tool);
+
+// Set color
+
+
+
+let currentColor = document.getElementById('current-color');
+let currentInputColor = document.getElementById('current-color-input');
+currentInputColor.addEventListener('change', (e) => {
+    selectedColor = e.target.value;
+    currentColor.style.background = selectedColor;
+});
+
+// Custom pointer
+
+canvas_4x4.addEventListener('mouseover', () => {
+    switch (selectedTool) {
+        case 'pencil':
+            console.log(selectedTool);
+            canvas_4x4.style.cursor = 'url(assets/cursors/pencil.png), default';
+            break;
+        case 'paint-bucket':
+            console.log(selectedTool);
+            canvas_4x4.style.cursor = 'url(assets/cursors/paint-bucket.png), default';
+            break;
+        case 'color-picker':
+            canvas_4x4.style.cursor = 'url(assets/cursors/color-picker.png), default';
+            break;
+
+    }
+});
+// let pencilPointer = document.getElementsByClassName('icon-pencil');

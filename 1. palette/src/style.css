@@ -101,8 +101,8 @@ main {
   display: -ms-grid;
   display: grid;
   -ms-grid-rows: 1fr 1fr;
-  -ms-grid-columns: 20% 60% 20%;
-      grid-template: 1fr 1fr / 20% 60% 20%;
+  -ms-grid-columns: 30% 70%;
+      grid-template: 1fr 1fr / 30% 70%;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -204,7 +204,11 @@ main .panel .panel-item input[disabled] + label {
 }
 
 main .panel .panel-item input[checked] + label span {
-  color: red;
+  color: #ea00ff;
+}
+
+main .panel .panel-item input[type="color"] {
+  display: none;
 }
 
 main canvas {
