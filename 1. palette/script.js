@@ -18,9 +18,12 @@ let scaleY = canvas_4x4.height / height;
 for (let row = 0; row < height; row++) {
     for (let col = 0; col < width; col++) {
         ctx.fillStyle = data[row][col];
+        let m = ctx.fillStyle;
         ctx.fillRect(col * scaleX, row * scaleY, scaleX, scaleY);
     }
 }
+
+// Select the tool
 
 let selectedTool = "pencil";
 let selectedColor = '#808080';
@@ -37,36 +40,27 @@ const selectedTools = (tool) => {
     }
 }
 
-let isDrawing = false;
-let lastX = 0;
-let lastY = 0;
-
-function pencilDraw(e) {
-    if (selectedTool === "pencil") {
-        if (!isDrawing) return;
-        let x = Math.floor(e.offsetX / scaleX);
-        let y = Math.floor(e.offsetY / scaleY);
-        ctx.fillStyle = selectedColor;
-        ctx.fillRect(x * scaleX, y * scaleY, scaleX, scaleY);
-    }
-}
-
-canvas_4x4.addEventListener('mousedown', (e) => {
-    isDrawing = true;
-    pencilDraw(e);
-});
-canvas_4x4.addEventListener('mousemove', pencilDraw);
-document.addEventListener('mouseup', () => isDrawing = false);
-
-
-
-
 let tool = document.querySelectorAll('.tool');
 selectedTools(tool);
 
+// Custom pointer
+
+canvas_4x4.addEventListener('mouseover', () => {
+    switch (selectedTool) {
+        case 'pencil':
+            canvas_4x4.style.cursor = 'url(assets/cursors/pencil.png), default';
+            break;
+        case 'paint-bucket':
+            canvas_4x4.style.cursor = 'url(assets/cursors/paint-bucket.png), default';
+            break;
+        case 'color-picker':
+            canvas_4x4.style.cursor = 'url(assets/cursors/color-picker.png), default';
+            break;
+    }
+});
+
+
 // Set color
-
-
 
 let currentColor = document.getElementById('current-color');
 let currentInputColor = document.getElementById('current-color-input');
@@ -75,22 +69,52 @@ currentInputColor.addEventListener('change', (e) => {
     currentColor.style.background = selectedColor;
 });
 
-// Custom pointer
+// Draw with pencil
 
-canvas_4x4.addEventListener('mouseover', () => {
+let isDrawing = false;
+let lastX = 0;
+let lastY = 0;
+
+function pencilDraw(e) {
+    if (!isDrawing) return;
+    let x = Math.floor(e.offsetX / scaleX);
+    let y = Math.floor(e.offsetY / scaleY);
+    ctx.fillStyle = selectedColor;
+    ctx.fillRect(x * scaleX, y * scaleY, scaleX, scaleY);
+}
+
+// Pick the color
+
+function pickColor(e) {
+    let colorArray = ctx.getImageData(e.offsetX, e.offsetY, 1, 1).data;
+    selectedColor = `rgba(${colorArray[0]},${colorArray[1]},${colorArray[2]},${(colorArray[3] / 255)})`;
+    currentColor.style.background = selectedColor;
+}
+
+// Handle mouse events
+
+canvas_4x4.addEventListener('mousedown', (e) => {
     switch (selectedTool) {
         case 'pencil':
-            console.log(selectedTool);
-            canvas_4x4.style.cursor = 'url(assets/cursors/pencil.png), default';
+            isDrawing = true;
+            pencilDraw(e);
             break;
         case 'paint-bucket':
-            console.log(selectedTool);
-            canvas_4x4.style.cursor = 'url(assets/cursors/paint-bucket.png), default';
+            console.log('paint-bucket', selectedTool);
+
             break;
         case 'color-picker':
-            canvas_4x4.style.cursor = 'url(assets/cursors/color-picker.png), default';
+            console.log('color-picker', selectedTool);
+            pickColor(e);
             break;
 
     }
 });
-// let pencilPointer = document.getElementsByClassName('icon-pencil');
+canvas_4x4.addEventListener('mousemove', pencilDraw);
+document.addEventListener('mouseup', () => isDrawing = false);
+
+
+
+
+
+
