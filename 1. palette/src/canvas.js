@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 const defaultImageData = [
   ['#00BCD4', '#FFEB3B', '#FFEB3B', '#00BCD4'],
   ['#FFEB3B', '#FFC107', '#FFC107', '#FFEB3B'],
@@ -93,13 +95,13 @@ currentInputColor.addEventListener('change', (e) => {
 canvas.addEventListener('mouseover', () => {
   switch (selectedTool) {
     case 'pencil':
-      canvas.style.cursor = 'url(assets/cursors/pencil.png), default';
+      canvas.style.cursor = 'url(../assets/cursors/pencil.png), default';
       break;
     case 'paint-bucket':
-      canvas.style.cursor = 'url(assets/cursors/paint-bucket.png), default';
+      canvas.style.cursor = 'url(../assets/cursors/paint-bucket.png), default';
       break;
     case 'color-picker':
-      canvas.style.cursor = 'url(assets/cursors/color-picker.png), default';
+      canvas.style.cursor = 'url(../assets/cursors/color-picker.png), default';
       break;
     default:
       break;
