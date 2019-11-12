@@ -1,4 +1,4 @@
-import _ from 'lodash';
+const colorsMatch = require('./utils/colors-match.util');
 
 const defaultImageData = [
   ['#00BCD4', '#FFEB3B', '#FFEB3B', '#00BCD4'],
@@ -7,12 +7,8 @@ const defaultImageData = [
   ['#00BCD4', '#FFEB3B', '#FFEB3B', '#00BCD4'],
 ];
 
-
 const canvas = document.querySelector('#canvas');
-
 const ctx = canvas.getContext('2d');
-
-
 const scaleX = canvas.width / defaultImageData[0].length;
 const scaleY = canvas.height / defaultImageData.length;
 
@@ -146,10 +142,6 @@ function setPixel(imageData, x, y, color) {
   return setPixelImageData;
 }
 
-function colorsMatch(a, b) {
-  return a === b;
-}
-
 function imageConverter() {
   const bigImageData = ctx.getImageData(0, 0, canvas.width, canvas.width).data;
   const imageData = [];
@@ -247,3 +239,6 @@ document.addEventListener('click', () => {
   localStorage.setItem('tool', selectedTool);
   localStorage.setItem('color', selectedColor);
 });
+
+
+module.exports = { colorsMatch };

@@ -15,10 +15,9 @@
     "webpack-cli": "^3.3.10"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build": "webpack",
-    "lint": "./node_modules/.bin/eslint src/canvas.js --fix",
-    "test": "jest"
+    "lint": "./node_modules/.bin/eslint src/canvas.js --fix"
   },
   "author": "",
   "license": "ISC",
