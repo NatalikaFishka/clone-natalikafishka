@@ -13,5 +13,7 @@ module.exports = {
         "sourceType": "module"
     },
     "rules": {
+        "no-underscore-dangle": 0,
+        "no-shadow": 0
     }
 };
