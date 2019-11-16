@@ -32,3 +32,11 @@ tools.addEventListener('click', (e) => myCanvas.selectTool(tools, e));
 // Keyboard control
 
 document.addEventListener('keydown', (e) => myCanvas.keyboardControl(tools.querySelector('input[checked]'), e));
+
+// Set image on canvas on click
+
+const myButton = document.createElement('button');
+myButton.setAttribute('type', 'button');
+myButton.innerText = 'Load';
+document.querySelector('.canvases').appendChild(myButton);
+myButton.addEventListener('click', () => myCanvas.drawImageOnCanvas());

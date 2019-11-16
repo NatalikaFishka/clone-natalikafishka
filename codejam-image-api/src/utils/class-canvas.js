@@ -228,4 +228,32 @@ export default class Canvas {
         }
         return imageData;
     }
+
+    drawImageOnCanvas() {
+        const extImage = new Image();
+        extImage.src = '../assets/images/image.png';
+        let imageScale = 1;
+        extImage.onload = () => {
+            if (extImage.width >= extImage.height) {
+                imageScale = extImage.width / this.width;
+                for (let sy = 0; sy < extImage.height; sy += this.scaleY * imageScale) {
+                    for (let sx = 0; sx < extImage.width; sx += this.scaleX * imageScale) {
+                        this.ctx.drawImage(extImage, sx, sy, this.scaleX * imageScale, this.scaleY * imageScale, sx / imageScale, sy / imageScale + (this.height / 2 - extImage.height / (2 * imageScale)), this.scaleX, this.scaleY);
+                    }
+                }
+            } else {
+                imageScale = extImage.height / this.height;
+                for (let sy = 0; sy < extImage.height; sy += this.scaleY * imageScale) {
+                    for (let sx = 0; sx < extImage.width; sx += this.scaleX * imageScale) {
+                        this.ctx.drawImage(extImage, sx, sy, this.scaleX * imageScale, this.scaleY * imageScale, sx / imageScale + (this.width / 2 - extImage.width / (2 * imageScale)), sy / imageScale, this.scaleX, this.scaleY);
+                    }
+                }
+
+            }
+
+        };
+
+        // extImage = this._imageConverter();
+        // this._setImage(extImage);
+    }
 }
