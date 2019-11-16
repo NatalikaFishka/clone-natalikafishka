@@ -211,11 +211,49 @@ main .panel .panel-item input[type="color"] {
   display: none;
 }
 
-main canvas {
-  display: none;
+main .canvases {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 10% -webkit-max-content 10%;
+  -ms-grid-rows: 10% max-content 10%;
+  -ms-grid-columns: 20% 60% 20%;
+      grid-template: 10% -webkit-max-content 10% / 20% 60% 20%;
+      grid-template: 10% max-content 10% / 20% 60% 20%;
+  gap: 1rem;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-main canvas.show {
+main .canvases canvas {
   display: inline;
+  -ms-grid-row: 2;
+  -ms-grid-row-span: 1;
+  grid-row: 2 / 3;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
+  grid-column: 1 / 4;
+}
+
+main .canvases button {
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 1;
+  grid-row: 1/2;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 1;
+  grid-column: 1/2;
+  background-color: #00bcd4;
+  outline: none;
+  border: none;
+  border-radius: 0.5rem;
+  -webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+          box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+  color: #FFFFFF;
+  padding: 0.5rem;
+  font-size: 1rem;
+  font-family: "Roboto Light";
 }
 /*# sourceMappingURL=style.css.map */

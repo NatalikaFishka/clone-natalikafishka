@@ -12,7 +12,6 @@ export default class Canvas {
     }
 
     init(data) {
-        this.canvas.classList.add('show');
         this.canvas.setAttribute('id', 'canvas');
         this.canvas.setAttribute('width', this.width);
         this.canvas.setAttribute('height', this.height);
@@ -231,8 +230,10 @@ export default class Canvas {
 
     drawImageOnCanvas() {
         const extImage = new Image();
-        this._getImageURL();
-        extImage.src = this.dataImage;
+        // this._getImageURL();
+        // extImage.src = this.dataImage;
+        extImage.src = '../assets/images/image.png';
+
         let imageScale = 1;
         extImage.onload = () => {
             if (extImage.width >= extImage.height) {

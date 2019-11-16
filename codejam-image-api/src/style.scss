@@ -62,6 +62,7 @@
 }
 
 $roboto: 'Roboto Light';
+$buttonColor: rgba(0, 188, 212, 1);
 
 body {
     font-family: $roboto;    
@@ -180,10 +181,34 @@ main {
         }
     }
 
-    canvas {
-        display: none;
-        &.show {
-            display: inline;
+    .canvases {
+
+        display: grid;
+        grid-template: 10% max-content 10% / 20% 60% 20%;
+        gap: 1rem;
+        justify-content: center;
+        align-items: center;   
+
+        canvas {
+               display: inline;
+               grid-row: 2 / 3;
+               grid-column: 1 / 4;
         }
-    }    
+        
+        button {
+            grid-row: 1/2;
+            grid-column: 1/2;
+            background-color: $buttonColor;
+            outline: none;
+            border: none;
+            border-radius: 0.5rem;
+            box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+            color: #FFFFFF;
+            padding: 0.5rem;
+            font-size: 1rem;
+            font-family: $roboto;
+        }
+
+    }
+    
 }
