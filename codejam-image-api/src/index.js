@@ -1,12 +1,7 @@
+import { data, cities } from './utils/static-data';
 import Canvas from './utils/class-canvas';
 import unsplashUrl from './utils/image-api';
-
-const data = [
-    ['rgba(255,255,255,0)', 'rgba(255,255,255,0)', 'rgba(255,255,255,0)', 'rgba(255,255,255,0)'],
-    ['rgba(255,255,255,0)', 'rgba(255,255,255,0)', 'rgba(255,255,255,0)', 'rgba(255,255,255,0)'],
-    ['rgba(255,255,255,0)', 'rgba(255,255,255,0)', 'rgba(255,255,255,0)', 'rgba(255,255,255,0)'],
-    ['rgba(255,255,255,0)', 'rgba(255,255,255,0)', 'rgba(255,255,255,0)', 'rgba(255,255,255,0)'],
-];
+import { SearchBar } from './utils/search-bar'
 
 const myCanvas = new Canvas(512, 512);
 myCanvas.init(data);
@@ -34,13 +29,15 @@ tools.addEventListener('click', (e) => myCanvas.selectTool(tools, e));
 
 document.addEventListener('keydown', (e) => myCanvas.keyboardControl(tools.querySelector('input[checked]'), e));
 
-// Set image on canvas on click
+// Set search town component
 
-const myButton = document.createElement('button');
-myButton.setAttribute('type', 'button');
-myButton.innerText = 'Load';
-document.querySelector('main').appendChild(myButton);
-myButton.addEventListener('click', async () => {
+const mySearchBar = new SearchBar();
+mySearchBar.init();
+let domSearchBar = document.querySelector('#searchbar');
+domSearchBar.addEventListener('keyup', () => mySearchBar.filterCities(cities));
+
+let domLoadBtn = document.querySelector('#load-btn');
+domLoadBtn.addEventListener('click', async () => {
     let myUrl = await unsplashUrl();
     myCanvas.drawImageOnCanvas(myUrl);
 });
