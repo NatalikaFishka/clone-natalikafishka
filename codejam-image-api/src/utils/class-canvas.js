@@ -228,12 +228,9 @@ export default class Canvas {
         return imageData;
     }
 
-    drawImageOnCanvas() {
+    drawImageOnCanvas(unsplashUrl) {
         const extImage = new Image();
-        // this._getImageURL();
-        // extImage.src = this.dataImage;
-        extImage.src = '../assets/images/image.png';
-
+        extImage.src = unsplashUrl;
         let imageScale = 1;
         extImage.onload = () => {
             if (extImage.width >= extImage.height) {
@@ -252,15 +249,5 @@ export default class Canvas {
                 }
             }
         };
-    }
-
-    _getImageURL() {
-        const url = 'https://api.unsplash.com/photos/random?query=town,Minsk&client_id=196b80d7ba2c92d42c480c466d9896b09909ffb5fc28847b1dcd980fb4b63e44';
-        fetch(url)
-            .then((res) => res.json())
-            .then((data) => {
-                this.dataImage = data.urls.small;
-            });
-        return this.dataImage;
     }
 }

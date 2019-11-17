@@ -1,4 +1,5 @@
 import Canvas from './utils/class-canvas';
+import unsplashUrl from './utils/image-api';
 
 const data = [
     ['#FFFFFF', '#FFFFFF', '#FFFFFF', '#FFFFFF'],
@@ -38,5 +39,8 @@ document.addEventListener('keydown', (e) => myCanvas.keyboardControl(tools.query
 const myButton = document.createElement('button');
 myButton.setAttribute('type', 'button');
 myButton.innerText = 'Load';
-document.querySelector('.canvases').appendChild(myButton);
-myButton.addEventListener('click', () => myCanvas.drawImageOnCanvas());
+document.querySelector('main').appendChild(myButton);
+myButton.addEventListener('click', async () => {
+    let myUrl = await unsplashUrl();
+    myCanvas.drawImageOnCanvas(myUrl);
+});
