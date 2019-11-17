@@ -2,10 +2,10 @@ import Canvas from './utils/class-canvas';
 import unsplashUrl from './utils/image-api';
 
 const data = [
-    ['#FFFFFF', '#FFFFFF', '#FFFFFF', '#FFFFFF'],
-    ['#FFFFFF', '#FFFFFF', '#FFFFFF', '#FFFFFF'],
-    ['#FFFFFF', '#FFFFFF', '#FFFFFF', '#FFFFFF'],
-    ['#FFFFFF', '#FFFFFF', '#FFFFFF', '#FFFFFF'],
+    ['rgba(255,255,255,0)', 'rgba(255,255,255,0)', 'rgba(255,255,255,0)', 'rgba(255,255,255,0)'],
+    ['rgba(255,255,255,0)', 'rgba(255,255,255,0)', 'rgba(255,255,255,0)', 'rgba(255,255,255,0)'],
+    ['rgba(255,255,255,0)', 'rgba(255,255,255,0)', 'rgba(255,255,255,0)', 'rgba(255,255,255,0)'],
+    ['rgba(255,255,255,0)', 'rgba(255,255,255,0)', 'rgba(255,255,255,0)', 'rgba(255,255,255,0)'],
 ];
 
 const myCanvas = new Canvas(512, 512);

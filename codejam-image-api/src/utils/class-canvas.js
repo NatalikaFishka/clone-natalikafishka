@@ -173,7 +173,7 @@ export default class Canvas {
     }
 
     _saveToLS() {
-        localStorage.setItem('canvas', this._imageConverter());
+        localStorage.setItem('canvas', this.canvas.toDataURL());
         localStorage.setItem('color', this.selectedColor);
         localStorage.setItem('tool', this.tool);
     }
@@ -182,18 +182,17 @@ export default class Canvas {
         // Setting image on canvas
 
         if (localStorage.getItem('canvas')) {
-            let customData = localStorage.getItem('canvas');
-            customData = customData.replace(/\)/gm, '))');
-            customData = customData.substr(0, customData.length - 1);
-            customData = customData.split('),');
-            const finalCustomData = [];
-            while (customData.length > 0) {
-                finalCustomData.push(customData.splice(0, 4));
+            let dataURL = localStorage.getItem('canvas');
+            let img = new Image;
+            img.src = dataURL;
+            img.onload = () => {
+                this.ctx.drawImage(img, 0, 0, this.width, this.height);
+                this._setImage(data);
             }
-            this._setImage(finalCustomData);
         } else {
             this._setImage(data);
         }
+
         // Setting tool
 
 
@@ -230,6 +229,7 @@ export default class Canvas {
 
     drawImageOnCanvas(unsplashUrl) {
         const extImage = new Image();
+        extImage.crossOrigin = "Anonymous";
         extImage.src = unsplashUrl;
         let imageScale = 1;
         extImage.onload = () => {
