@@ -281,10 +281,95 @@ main {
     
     .range-bar-component {
         width: 512px;
+        position: relative;
+        margin-top: 1rem;
 
-        input {
+        input[type=range] {
+            overflow: hidden;
             width: 100%;
+            -webkit-appearance: none;
+            background-color: gray;
+            position: relative;
+
+            &:focus {
+                outline: none
+            }
+
+            &:hover {
+                cursor: pointer;
+            }
+
+            &::-webkit-slider-runnable-track {
+                height: 0.3rem;
+                -webkit-appearance: none;
+                // color: $buttonColor;
+                margin-top: -1px;
+            }
+
+            &::-webkit-slider-thumb {
+                width: 0.2rem;
+                -webkit-appearance: none;
+                height: 0.3rem;
+                background: #434343;
+                box-shadow: -512px 0 0 512px $buttonColor;
+            }
+
+            &:before {
+                content: "";
+                width: 50%;
+                height: 10px;
+                background: rgba(0,0,0,0.2);
+                display: block;
+                position: absolute;
+                border-left: 4px solid black;
+                border-right: 2px solid black;
+                box-sizing: border-box;
+            }
+
+            &:after {
+                content: "";
+                width: 50%;
+                height: 10px;
+                left: 50%;
+                background: rgba(0,0,0,0.2);
+                display: block;
+                position: absolute;
+                border-left: 2px solid black;
+                border-right: 4px solid black;
+                box-sizing: border-box;
+            }
         }
-    }
-    
+
+        output { 
+            position: absolute;
+            background: $buttonColor;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            border-radius: 50%;
+            bottom: 100%;
+            left: 0;
+            margin-left: -13px;
+            font-family: $roboto;
+            font-size:  0.9rem;;
+
+            
+          }
+          output:after { 
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-top: 15px solid $buttonColor;
+            border-left: 13px solid transparent;
+            border-right: 13px solid transparent;
+            top: 100%;
+            left: 50%;
+            margin-left: -13px;
+            margin-top: -7px;
+          }
+    }    
 }

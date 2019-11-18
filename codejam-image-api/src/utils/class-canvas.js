@@ -61,9 +61,6 @@ export default class Canvas {
         if (!this.isDrawing) {
             return;
         }
-
-        console.log("sX", this.scaleX);
-
         const x = Math.floor(e.offsetX / this.scaleX);
         const y = Math.floor(e.offsetY / this.scaleY);
         this.ctx.fillStyle = this.selectedColor;

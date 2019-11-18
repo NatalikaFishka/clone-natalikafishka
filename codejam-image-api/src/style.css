@@ -329,9 +329,102 @@ main .search-component button[disabled] {
 
 main .range-bar-component {
   width: 512px;
+  position: relative;
+  margin-top: 1rem;
 }
 
-main .range-bar-component input {
+main .range-bar-component input[type=range] {
+  overflow: hidden;
   width: 100%;
+  -webkit-appearance: none;
+  background-color: gray;
+  position: relative;
+}
+
+main .range-bar-component input[type=range]:focus {
+  outline: none;
+}
+
+main .range-bar-component input[type=range]:hover {
+  cursor: pointer;
+}
+
+main .range-bar-component input[type=range]::-webkit-slider-runnable-track {
+  height: 0.3rem;
+  -webkit-appearance: none;
+  margin-top: -1px;
+}
+
+main .range-bar-component input[type=range]::-webkit-slider-thumb {
+  width: 0.2rem;
+  -webkit-appearance: none;
+  height: 0.3rem;
+  background: #434343;
+  -webkit-box-shadow: -512px 0 0 512px #00bcd4;
+          box-shadow: -512px 0 0 512px #00bcd4;
+}
+
+main .range-bar-component input[type=range]:before {
+  content: "";
+  width: 50%;
+  height: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  display: block;
+  position: absolute;
+  border-left: 4px solid black;
+  border-right: 2px solid black;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+main .range-bar-component input[type=range]:after {
+  content: "";
+  width: 50%;
+  height: 10px;
+  left: 50%;
+  background: rgba(0, 0, 0, 0.2);
+  display: block;
+  position: absolute;
+  border-left: 2px solid black;
+  border-right: 4px solid black;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+main .range-bar-component output {
+  position: absolute;
+  background: #00bcd4;
+  width: 30px;
+  height: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: white;
+  border-radius: 50%;
+  bottom: 100%;
+  left: 0;
+  margin-left: -13px;
+  font-family: "Roboto Light";
+  font-size: 0.9rem;
+}
+
+main .range-bar-component output:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-top: 15px solid #00bcd4;
+  border-left: 13px solid transparent;
+  border-right: 13px solid transparent;
+  top: 100%;
+  left: 50%;
+  margin-left: -13px;
+  margin-top: -7px;
 }
 /*# sourceMappingURL=style.css.map */

@@ -31,14 +31,15 @@ export default class RangeBar {
             switch (this.rangeBar.value) {
                 case '1':
                     this.rangeBarOutput.textContent = '128';
-
+                    this.rangeBarOutput.style.marginLeft = `${-13}px`;
                     break;
                 case '2':
                     this.rangeBarOutput.textContent = '256';
+                    this.rangeBarOutput.style.marginLeft = `${241}px`;
                     break;
-
                 case '3':
                     this.rangeBarOutput.textContent = '512';
+                    this.rangeBarOutput.style.marginLeft = `${495}px`;
                     break;
                 default:
                     break;

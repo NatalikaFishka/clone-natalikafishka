@@ -58,10 +58,7 @@ myRangeBar.init();
 
 const domRangeBar = document.querySelector('#range-bar');
 
-domRangeBar.addEventListener('input', (e) => {
-    console.log(e);
+domRangeBar.addEventListener('input', () => {
     myCanvas.scaleX = Number(myRangeBar.rangeBarOutput.value);
     myCanvas.scaleY = Number(myRangeBar.rangeBarOutput.value);
-    console.log(document.querySelector('output').value);
-    console.log(myCanvas);
 });
