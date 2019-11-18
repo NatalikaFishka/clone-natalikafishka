@@ -63,6 +63,7 @@
 
 $roboto: 'Roboto Light';
 $buttonColor: rgba(0, 188, 212, 1);
+$disabledButtonColor: grey;
 
 body {
     font-family: $roboto;    
@@ -254,6 +255,10 @@ main {
             padding: 0.5rem;
             font-size: 1rem;
             font-family: $roboto;
+
+            &[disabled] {
+                background-color: $disabledButtonColor;
+            }
         }
     }
     

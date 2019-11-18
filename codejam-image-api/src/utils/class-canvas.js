@@ -182,13 +182,13 @@ export default class Canvas {
         // Setting image on canvas
 
         if (localStorage.getItem('canvas')) {
-            let dataURL = localStorage.getItem('canvas');
-            let img = new Image;
+            const dataURL = localStorage.getItem('canvas');
+            const img = new Image();
             img.src = dataURL;
             img.onload = () => {
                 this.ctx.drawImage(img, 0, 0, this.width, this.height);
                 this._setImage(data);
-            }
+            };
         } else {
             this._setImage(data);
         }
@@ -229,22 +229,46 @@ export default class Canvas {
 
     drawImageOnCanvas(unsplashUrl) {
         const extImage = new Image();
-        extImage.crossOrigin = "Anonymous";
+        extImage.crossOrigin = 'Anonymous';
         extImage.src = unsplashUrl;
         let imageScale = 1;
+        let extImageStartX = 0;
+        let extImageStartY = 0;
         extImage.onload = () => {
             if (extImage.width >= extImage.height) {
                 imageScale = extImage.width / this.width;
+                extImageStartY = this.height / 2 - extImage.height / (2 * imageScale);
                 for (let sy = 0; sy < extImage.height; sy += this.scaleY * imageScale) {
                     for (let sx = 0; sx < extImage.width; sx += this.scaleX * imageScale) {
-                        this.ctx.drawImage(extImage, sx, sy, this.scaleX * imageScale, this.scaleY * imageScale, sx / imageScale, sy / imageScale + (this.height / 2 - extImage.height / (2 * imageScale)), this.scaleX, this.scaleY);
+                        this.ctx.drawImage(
+                            extImage,
+                            sx,
+                            sy,
+                            this.scaleX * imageScale,
+                            this.scaleY * imageScale,
+                            sx / imageScale,
+                            sy / imageScale + extImageStartY,
+                            this.scaleX,
+                            this.scaleY,
+                        );
                     }
                 }
             } else {
                 imageScale = extImage.height / this.height;
+                extImageStartX = this.width / 2 - extImage.width / (2 * imageScale);
                 for (let sy = 0; sy < extImage.height; sy += this.scaleY * imageScale) {
                     for (let sx = 0; sx < extImage.width; sx += this.scaleX * imageScale) {
-                        this.ctx.drawImage(extImage, sx, sy, this.scaleX * imageScale, this.scaleY * imageScale, sx / imageScale + (this.width / 2 - extImage.width / (2 * imageScale)), sy / imageScale, this.scaleX, this.scaleY);
+                        this.ctx.drawImage(
+                            extImage,
+                            sx,
+                            sy,
+                            this.scaleX * imageScale,
+                            this.scaleY * imageScale,
+                            sx / imageScale + extImageStartX,
+                            sy / imageScale,
+                            this.scaleX,
+                            this.scaleY,
+);
                     }
                 }
             }

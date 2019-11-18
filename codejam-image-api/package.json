@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "build": "webpack",
-    "lint": "./node_modules/.bin/eslint src/index.js src/utils/class-canvas.js --fix"
+    "lint": "./node_modules/.bin/eslint src/index.js src/utils/*.js --fix"
   },
   "keywords": [],
   "author": "",

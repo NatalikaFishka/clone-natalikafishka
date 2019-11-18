@@ -299,4 +299,8 @@ main .search-component button {
   font-size: 1rem;
   font-family: "Roboto Light";
 }
+
+main .search-component button[disabled] {
+  background-color: grey;
+}
 /*# sourceMappingURL=style.css.map */

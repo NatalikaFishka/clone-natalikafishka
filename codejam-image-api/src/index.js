@@ -1,7 +1,7 @@
 import { data, cities } from './utils/static-data';
 import Canvas from './utils/class-canvas';
 import unsplashUrl from './utils/image-api';
-import { SearchBar } from './utils/search-bar'
+import SearchBar from './utils/search-bar';
 
 const myCanvas = new Canvas(512, 512);
 myCanvas.init(data);
@@ -33,11 +33,11 @@ document.addEventListener('keydown', (e) => myCanvas.keyboardControl(tools.query
 
 const mySearchBar = new SearchBar();
 mySearchBar.init();
-let domSearchBar = document.querySelector('#searchbar');
+const domSearchBar = document.querySelector('#searchbar');
 domSearchBar.addEventListener('keyup', () => mySearchBar.filterCities(cities));
 
-let domLoadBtn = document.querySelector('#load-btn');
+const domLoadBtn = document.querySelector('#load-btn');
 domLoadBtn.addEventListener('click', async () => {
-    let myUrl = await unsplashUrl();
+    const myUrl = await unsplashUrl(mySearchBar.cityInput);
     myCanvas.drawImageOnCanvas(myUrl);
 });
