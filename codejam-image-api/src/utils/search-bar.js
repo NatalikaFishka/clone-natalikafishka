@@ -36,7 +36,6 @@ export default class SearchBar {
         this.bwButton = document.createElement('button');
         this.bwButton.classList.add('search-component__bw-btn');
         this.bwButton.setAttribute('id', 'bw-btn');
-        // this.bwButton.setAttribute('disabled', '');
         this.bwButton.setAttribute('type', 'button');
         this.bwButton.innerText = 'B&W';
         this.container.appendChild(this.bwButton);
@@ -50,8 +49,8 @@ export default class SearchBar {
             this.searchBarContainer.removeChild(nodeToRemove);
         }
 
-        const inputValue = this.searchBar.value;
-        const filteredCities = cities.filter((city) => city.toLowerCase().includes(inputValue.toLowerCase()));
+        const inputValue = this.searchBar.value.toLowerCase();
+        const filteredCities = cities.filter((city) => city.toLowerCase().includes(inputValue));
 
 
         this.searchBarList = document.createElement('ul');

@@ -326,4 +326,12 @@ main .search-component button[disabled] {
           transform: none;
   cursor: default;
 }
+
+main .range-bar-component {
+  width: 512px;
+}
+
+main .range-bar-component input {
+  width: 100%;
+}
 /*# sourceMappingURL=style.css.map */

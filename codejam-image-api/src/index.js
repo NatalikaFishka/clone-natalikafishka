@@ -2,6 +2,7 @@ import { data, cities } from './utils/static-data';
 import Canvas from './utils/class-canvas';
 import unsplashUrl from './utils/image-api';
 import SearchBar from './utils/search-bar';
+import RangeBar from './utils/range-bar';
 
 const myCanvas = new Canvas(512, 512);
 myCanvas.init(data);
@@ -43,9 +44,24 @@ domLoadBtn.addEventListener('click', async () => {
 });
 
 
-// Covert image to B&W
+// Convert image to B&W
 
 const domBWBtn = document.querySelector('#bw-btn');
 domBWBtn.addEventListener('click', () => {
     myCanvas.toGrayScale();
+});
+
+// Set range bar
+
+const myRangeBar = new RangeBar();
+myRangeBar.init();
+
+const domRangeBar = document.querySelector('#range-bar');
+
+domRangeBar.addEventListener('input', (e) => {
+    console.log(e);
+    myCanvas.scaleX = Number(myRangeBar.rangeBarOutput.value);
+    myCanvas.scaleY = Number(myRangeBar.rangeBarOutput.value);
+    console.log(document.querySelector('output').value);
+    console.log(myCanvas);
 });

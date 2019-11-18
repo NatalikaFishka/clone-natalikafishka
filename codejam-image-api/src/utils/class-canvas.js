@@ -7,8 +7,8 @@ export default class Canvas {
         this.isDrawing = false;
         this.ctx = this.canvas.getContext('2d');
         this.selectedColor = 'rgba(128,128,128,1)';
-        this.scaleX = 1;
-        this.scaleX = 1;
+        this.scaleX = 128;
+        this.scaleY = 128;
     }
 
     init(data) {
@@ -58,7 +58,12 @@ export default class Canvas {
     }
 
     pencilDraw(e) {
-        if (!this.isDrawing) return;
+        if (!this.isDrawing) {
+            return;
+        }
+
+        console.log("sX", this.scaleX);
+
         const x = Math.floor(e.offsetX / this.scaleX);
         const y = Math.floor(e.offsetY / this.scaleY);
         this.ctx.fillStyle = this.selectedColor;
@@ -190,12 +195,12 @@ export default class Canvas {
         const imageToConvert = this.ctx.getImageData(0, 0, this.height, this.width);
         for (let j = 0; j < imageToConvert.height; j += 1) {
             for (let i = 0; i < imageToConvert.width; i += 1) {
-                let index = (i * 4) * imageToConvert.width + (j * 4);
-                let red = imageToConvert.data[index + 0];
-                let green = imageToConvert.data[index + 1];
-                let blue = imageToConvert.data[index + 2];
-                let alpha = imageToConvert.data[index + 3];
-                let average = (red + green + blue) / 3;
+                const index = (i * 4) * imageToConvert.width + (j * 4);
+                const red = imageToConvert.data[index + 0];
+                const green = imageToConvert.data[index + 1];
+                const blue = imageToConvert.data[index + 2];
+                const alpha = imageToConvert.data[index + 3];
+                const average = (red + green + blue) / 3;
 
                 imageToConvert.data[index + 0] = average;
                 imageToConvert.data[index + 1] = average;
@@ -254,10 +259,11 @@ export default class Canvas {
             img.src = dataURL;
             img.onload = () => {
                 this.ctx.drawImage(img, 0, 0, this.width, this.height);
-                this._setImage(data);
+                this._setImage(this._pixelGrid());
             };
         } else {
             this._setImage(data);
+            this._setImage(this._pixelGrid());
         }
 
         // Setting tool
@@ -285,12 +291,30 @@ export default class Canvas {
     _imageConverter() {
         const bigImageData = this.ctx.getImageData(0, 0, this.height, this.width).data;
         const imageData = [];
-        const stepYLimit = this.height * this.width * 4;
-        for (let stepY = 0; stepY < stepYLimit; stepY += this.width * this.scaleY * 4) {
-            for (let stepX = stepY; stepX < stepY + this.width * 4; stepX += this.scaleX * 4) {
+        const relativePixelSize = this.width / this.scaleX;
+        const stepYLimit = this.height * this.width * relativePixelSize;
+        for (let stepY = 0;
+            stepY < stepYLimit;
+            stepY += this.width * this.scaleY * relativePixelSize) {
+            for (let stepX = stepY;
+                stepX < stepY + this.width * relativePixelSize;
+                stepX += this.scaleX * relativePixelSize) {
                 imageData.push(`rgba(${bigImageData[stepX + 0]},${bigImageData[stepX + 1]},${bigImageData[stepX + 2]},${(bigImageData[stepX + 3] / 255)})`);
             }
         }
         return imageData;
+    }
+
+    _pixelGrid() {
+        const pixelGrid = [];
+        let pixelGridRow = [];
+        for (let y = 0; y < this.height; y += this.scaleY) {
+            for (let x = 0; x < this.width; x += this.scaleX) {
+                pixelGridRow.push('rgba(255,255,255,0)');
+            }
+            pixelGrid.push(pixelGridRow);
+            pixelGridRow = [];
+        }
+        return pixelGrid;
     }
 }
