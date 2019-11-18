@@ -36,7 +36,7 @@ export default class SearchBar {
         this.bwButton = document.createElement('button');
         this.bwButton.classList.add('search-component__bw-btn');
         this.bwButton.setAttribute('id', 'bw-btn');
-        this.bwButton.setAttribute('disabled', '');
+        // this.bwButton.setAttribute('disabled', '');
         this.bwButton.setAttribute('type', 'button');
         this.bwButton.innerText = 'B&W';
         this.container.appendChild(this.bwButton);

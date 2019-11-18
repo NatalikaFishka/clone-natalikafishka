@@ -100,7 +100,7 @@ main {
   padding-top: 2rem;
   display: -ms-grid;
   display: grid;
-  gap: 0.5rem;
+  gap: 1rem;
   -ms-grid-rows: (-webkit-max-content)[4];
   -ms-grid-rows: (max-content)[4];
   -ms-grid-columns: 30% 70%;
@@ -216,6 +216,7 @@ main .canvases {
 
 main .canvases canvas {
   display: inline;
+  border: 1px solid lightgray;
 }
 
 main .search-component {
@@ -290,7 +291,7 @@ main .search-component .search-component__bar-container ul.show p:hover {
 main .search-component button {
   background-color: #00bcd4;
   outline: none;
-  border: none;
+  border: 1px solid #00bcd4;
   border-radius: 0.5rem;
   -webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
           box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
@@ -298,9 +299,31 @@ main .search-component button {
   padding: 0.5rem;
   font-size: 1rem;
   font-family: "Roboto Light";
+  -webkit-transition: -webkit-transform .3s ease-in-out;
+  transition: -webkit-transform .3s ease-in-out;
+  transition: transform .3s ease-in-out;
+  transition: transform .3s ease-in-out, -webkit-transform .3s ease-in-out;
+}
+
+main .search-component button:hover {
+  cursor: pointer;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+main .search-component button:active {
+  background-color: transparent;
+  color: #00bcd4;
+  -webkit-box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.5);
+          box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.5);
 }
 
 main .search-component button[disabled] {
   background-color: grey;
+  border: 1px solid grey;
+  color: white;
+  -webkit-transform: none;
+          transform: none;
+  cursor: default;
 }
 /*# sourceMappingURL=style.css.map */

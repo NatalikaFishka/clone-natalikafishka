@@ -41,3 +41,11 @@ domLoadBtn.addEventListener('click', async () => {
     const myUrl = await unsplashUrl(mySearchBar.cityInput);
     myCanvas.drawImageOnCanvas(myUrl);
 });
+
+
+// Covert image to B&W
+
+const domBWBtn = document.querySelector('#bw-btn');
+domBWBtn.addEventListener('click', () => {
+    myCanvas.toGrayScale();
+});

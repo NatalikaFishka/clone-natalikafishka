@@ -93,7 +93,7 @@ header {
 main {
     padding-top: 2rem;;
     display: grid;
-    gap: 0.5rem;
+    gap: 1rem;
     grid-template: repeat(4, max-content) / 30% 70%;
     align-items: center;
     justify-items: center;
@@ -184,6 +184,7 @@ main {
 
         canvas {
                display: inline;
+               border: 1px solid lightgray;      
         }
     }
 
@@ -248,16 +249,32 @@ main {
     
             background-color: $buttonColor;
             outline: none;
-            border: none;
+            border: 1px solid $buttonColor;
             border-radius: 0.5rem;
             box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
             color: #FFFFFF;
             padding: 0.5rem;
             font-size: 1rem;
             font-family: $roboto;
+            transition: transform .3s ease-in-out;
+
+            &:hover {
+                cursor: pointer;
+                transform: scale(1.1);
+            }           
+
+            &:active {
+                background-color: transparent;
+                color: $buttonColor;
+                box-shadow: inset 1px 1px 5px rgba(0,0,0,0.5);
+            }
 
             &[disabled] {
                 background-color: $disabledButtonColor;
+                border: 1px solid $disabledButtonColor;
+                color: white;
+                transform: none;
+                cursor: default;
             }
         }
     }
