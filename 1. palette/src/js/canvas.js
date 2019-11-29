@@ -11,7 +11,7 @@ const domCanvas = document.querySelector('canvas');
 
 const currentColor = document.getElementById('current-color');
 const currentInputColor = document.getElementById('current-color-input');
-currentInputColor.addEventListener('change', (e) => { currentColor.style.background = myCanvas.setColor(e); });
+currentInputColor.addEventListener('change', (e) => { currentColor.style.background = myCanvas.setColor(e.target.value); });
 
 // Events
 

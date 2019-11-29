@@ -24,8 +24,8 @@ export default class Canvas {
         document.addEventListener('click', () => this._saveToLS());
     }
 
-    setColor(e) {
-        this.selectedColor = e.target.value;
+    setColor(color) {
+        this.selectedColor = color;
         this._saveToLS();
         return this.selectedColor;
     }
