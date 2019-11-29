@@ -1,5 +1,5 @@
-import Canvas from '../utils/class-canvas.js';
-import { data } from '../js/config';
+import Canvas from '../utils/class-canvas';
+import { data } from './config';
 
 
 const myCanvas = new Canvas(512, 512);

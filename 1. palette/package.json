@@ -18,7 +18,7 @@
   "scripts": {
     "test": "jest",
     "build": "webpack",
-    "lint": "./node_modules/.bin/eslint src/canvas.js src/utils/class-canvas.js --fix"
+    "lint": "./node_modules/.bin/eslint src/js/canvas.js src/utils/class-canvas.js"
   },
   "author": "",
   "license": "ISC",
