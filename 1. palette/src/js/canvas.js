@@ -1,4 +1,4 @@
-import Canvas from './utils/class-canvas';
+import Canvas from '../utils/class-canvas.js';
 
 const data = [
   ['#00BCD4', '#FFEB3B', '#FFEB3B', '#00BCD4'],

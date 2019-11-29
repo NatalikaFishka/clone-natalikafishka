@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Codejam Canvas</title>
+    <link rel="stylesheet" href="../src/css/style.css">
+    <meta name="viewport" content="width=device-width">
+</head>
+
+<body>
+    <header>
+        <span class="icon-burger"></span>
+        <h1>CodeJam - Pallete</h1>
+        <span class="icon-three-dots"></span>
+    </header>
+    <main>
+        <div class="tools panel">
+            <div class="panel-item">
+                <input id="paint-bucket" class="tool" type="radio" name="tool" value="paint-bucket">
+                <label for="paint-bucket"><span class="icon-paint-bucket"></span>Paint bucket</label>
+            </div>
+            <div class="panel-item">
+                <input id="color-picker" class="tool" type="radio" name="tool" value="color-picker">
+                <label for="color-picker"><span class="icon-pocker"></span>Choose color</label>
+            </div>
+            <div class="panel-item">
+                <input id="pencil" class="tool" type="radio" name="tool" value="pencil">
+                <label for="pencil"><span class="icon-pencil"></span>Pencil</label>
+            </div>
+            <div class="panel-item">
+                <input id="transform" class="tool" type="radio" name="tool" value="transform" disabled>
+                <label for="transform"><span class="icon-arrow-back-forth"></span>Transform</label>
+            </div>
+
+        </div>
+        <div class="colors panel">
+            <div class="panel-item">
+                <input id="current-color-input" type="color" value="#808080">
+                <label for="current-color-input" id="current-color" class="colors__circle gray"></label>
+                <p>Current color</p>
+            </div>
+        </div>
+        <div class="canvases"></div>
+    </main>
+</body>
+
+</html>

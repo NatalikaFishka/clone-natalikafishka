@@ -1,4 +1,4 @@
-const colorsMatch = require('./utils/colors-match.util');
+const colorsMatch = require('../utils/colors-match.util');
 
 test('Return true if colors are match', () => {
     expect(colorsMatch('FFEB3B', 'FFEB3B')).toBe(true);
