@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "lint": "./node_modules/.bin/eslint src/index.js --fix"
+    "lint": "./node_modules/.bin/eslint src/index.js --fix",
+    "start:dev": "webpack-dev-server"
   },
   "keywords": [],
   "author": "",
@@ -24,7 +25,8 @@
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.1",
     "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
     "express": "^4.17.1",

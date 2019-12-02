@@ -6,13 +6,13 @@ module.exports = {
   watch: true,
   entry: './src/index.js',
   output: {
-    filename: 'main.js',
+    filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
   },
 
   plugins: [
     new HtmlPlugin({
-      filename: 'main.html',
+      filename: 'index.html',
       template: './src/index.html',
     }),
     new MiniCssExtractPlugin({

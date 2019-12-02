@@ -9,7 +9,7 @@
 2. Run frontend app
 
 ```bash
-  npm run dev:client
+  npm run start:dev
 ```
 
 3. Run backend app (in a separate terminal tab/window)
