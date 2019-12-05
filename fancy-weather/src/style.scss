@@ -1,5 +1,10 @@
-$body-color: grey;
+$body-color: rgba(255, 235, 253, 1);
 
 body {
   background-color: $body-color;
+}
+
+.icon {
+  font-size: 48px;
+  color: #924da3;
 }
