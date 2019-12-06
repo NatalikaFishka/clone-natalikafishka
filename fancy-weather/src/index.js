@@ -1,7 +1,10 @@
 import './style.scss';
 import 'weather-icons/css/weather-icons.min.css';
 import { GEOLOCATION_TOKEN, WEATHER_TOKEN } from './constants/tokens';
-import getMap from './js/map';
+import { getMap, createHeadMapScript } from './js/map';
+import { createCurrentTemperatureDom, createMapDom, createThreeDayTempDom } from './js/dom';
+import getTime from './js/getTime';
+import { weekDay } from './constants/week';
 
 async function getUserLocation() {
   return fetch(`https://ipinfo.io/json?token=${GEOLOCATION_TOKEN}`).then(response => {
@@ -16,91 +19,32 @@ async function getWeatherForecast(locationCoordinates) {
   return fetch(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${WEATHER_TOKEN}/${locationCoordinates}?units=si&lang=${lang}`).then(response => response.json());
 }
 
-function renderForecastInfo(currently, city) {
-  const { summary, icon, temperature, apparentTemperature, humidity, time, windSpeed } = currently;
-
-  const infoContainer = document.createDocumentFragment();
-
-  /* Icon */
-  const weatherIconClassName = {
-    'clear-day': 'icon wi wi-day-sunny',
-    'clear-night': 'icon wi wi-night-clear',
-    'rain': 'icon wi wi-rain',
-    'snow': 'icon wi wi-snow',
-    'sleet': 'icon wi wi-sleet',
-    'wind': 'icon wi wi-windy',
-    'fog': 'icon wi wi-fog',
-    'cloudy': 'icon wi wi-cloudy',
-    'partly-cloudy-day': 'icon wi wi-day-cloudy',
-    'partly-cloudy-night': 'icon wi wi-night-alt-cloudy',
-
-  };
-
-  const iconEl = document.createElement('i');
-  iconEl.className = weatherIconClassName[icon];
-  infoContainer.appendChild(iconEl);
-
-  /* Summary */
-  const summaryEl = document.createElement('p');
-  summaryEl.innerText = summary;
-  infoContainer.appendChild(summaryEl);
-
-  /* City */
-  const cityEl = document.createElement('p');
-  cityEl.innerText = city;
-  infoContainer.appendChild(cityEl);
-
-  /* Temperature */
-
-  const tempEl = document.createElement('div');
-  tempEl.innerText = Math.round(temperature);
-  infoContainer.appendChild(tempEl);
-
-  /* apparentTemperature */
-
-  const apparentTempEl = document.createElement('div');
-  apparentTempEl.innerText = Math.round(apparentTemperature);
-  infoContainer.appendChild(apparentTempEl);
-
-  /* humidity */
-
-  const humidityEl = document.createElement('div');
-  humidityEl.innerText = humidity * 100;
-  infoContainer.appendChild(humidityEl);
-
-  /* time */
-
-  const timeEl = document.createElement('div');
-  timeEl.innerText = time;
-  infoContainer.appendChild(timeEl);
-
-  /* windSpeed */
-
-  const windSpeedEl = document.createElement('div');
-  windSpeedEl.innerText = windSpeed;
-  infoContainer.appendChild(windSpeedEl);
-
-  /* Create Map */
-
-  // const mapEl = document.createElement('div');
-  // mapEl.setAttribute('id', 'map');
-  // mapEl.setAttribute('style', 'width: 600px; height: 400px');
-  // infoContainer.appendChild(mapEl);
-
-  document.body.appendChild(infoContainer);
-}
 
 async function init() {
   try {
+    const timeData = await getTime();
     const { loc, city } = await getUserLocation();
-    const { latitude, longitude, currently } = await getWeatherForecast(loc);
-    await getMap(latitude, longitude);
+    const { latitude, longitude, currently, daily } = await getWeatherForecast(loc);
+    const { summary, icon, temperature, apparentTemperature, humidity, windSpeed } = currently;
 
-    renderForecastInfo(currently, city);
+    createCurrentTemperatureDom(summary, icon, city, temperature, apparentTemperature, humidity, windSpeed, weekDay[timeData.day_of_week], timeData.currentTime);
+    getMap(latitude, longitude);
+
+    for (let i = 1; i < 4; i += 1) {
+      let threeWeekDay;
+      if ((timeData.day_of_week + i) > 6) {
+        threeWeekDay = weekDay[timeData.day_of_week - 7 + i];
+      } else {
+        threeWeekDay = weekDay[timeData.day_of_week + i];
+      }
+      createThreeDayTempDom(daily.data[i].icon, threeWeekDay, daily.data[i].temperatureMax);
+    }
+
   } catch (e) {
     console.log(e);
   }
 }
 
+createHeadMapScript();
+createMapDom();
 init();
-
