@@ -1,4 +1,4 @@
-const showElementClass = 'show';
+const SHOW_ELEMENT_CLASS = 'show';
 export default class SearchBar {
     constructor() {
         this.container = null;
@@ -66,19 +66,19 @@ export default class SearchBar {
         this.searchBarContainer.appendChild(this.searchBarList);
 
         if (inputValue !== '' && filteredCities.length) {
-            this.searchBar.classList.add(showElementClass);
-            this.searchBarList.classList.add(showElementClass);
+            this.searchBar.classList.add(SHOW_ELEMENT_CLASS);
+            this.searchBarList.classList.add(SHOW_ELEMENT_CLASS);
             this.searchBarList.addEventListener('click', (e) => {
                 if (e.target.nodeName === 'P') {
                     this.searchBar.value = e.target.textContent;
-                    this.searchBar.classList.remove(showElementClass);
-                    this.searchBarList.classList.remove(showElementClass);
+                    this.searchBar.classList.remove(SHOW_ELEMENT_CLASS);
+                    this.searchBarList.classList.remove(SHOW_ELEMENT_CLASS);
                     this._getCityInput(cities);
                 }
             });
         } else {
-            this.searchBar.classList.remove(showElementClass);
-            this.searchBarList.classList.remove(showElementClass);
+            this.searchBar.classList.remove(SHOW_ELEMENT_CLASS);
+            this.searchBarList.classList.remove(SHOW_ELEMENT_CLASS);
         }
 
         this._getCityInput(cities);
@@ -88,8 +88,8 @@ export default class SearchBar {
         if (cities.indexOf(this.searchBar.value) > -1) {
             this.cityInput = this.searchBar.value;
             this.loadButton.removeAttribute('disabled');
-            this.searchBar.classList.remove(showElementClass);
-            this.searchBarList.classList.remove(showElementClass);
+            this.searchBar.classList.remove(SHOW_ELEMENT_CLASS);
+            this.searchBarList.classList.remove(SHOW_ELEMENT_CLASS);
         } else {
             this.loadButton.setAttribute('disabled', '');
         }
