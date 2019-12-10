@@ -1,3 +1,4 @@
+const showElementClass = 'show';
 export default class SearchBar {
     constructor() {
         this.container = null;
@@ -65,19 +66,19 @@ export default class SearchBar {
         this.searchBarContainer.appendChild(this.searchBarList);
 
         if (inputValue !== '' && filteredCities.length) {
-            this.searchBar.classList.add('show');
-            this.searchBarList.classList.add('show');
+            this.searchBar.classList.add(showElementClass);
+            this.searchBarList.classList.add(showElementClass);
             this.searchBarList.addEventListener('click', (e) => {
                 if (e.target.nodeName === 'P') {
                     this.searchBar.value = e.target.textContent;
-                    this.searchBar.classList.remove('show');
-                    this.searchBarList.classList.remove('show');
+                    this.searchBar.classList.remove(showElementClass);
+                    this.searchBarList.classList.remove(showElementClass);
                     this._getCityInput(cities);
                 }
             });
         } else {
-            this.searchBar.classList.remove('show');
-            this.searchBarList.classList.remove('show');
+            this.searchBar.classList.remove(showElementClass);
+            this.searchBarList.classList.remove(showElementClass);
         }
 
         this._getCityInput(cities);
@@ -87,8 +88,8 @@ export default class SearchBar {
         if (cities.indexOf(this.searchBar.value) > -1) {
             this.cityInput = this.searchBar.value;
             this.loadButton.removeAttribute('disabled');
-            this.searchBar.classList.remove('show');
-            this.searchBarList.classList.remove('show');
+            this.searchBar.classList.remove(showElementClass);
+            this.searchBarList.classList.remove(showElementClass);
         } else {
             this.loadButton.setAttribute('disabled', '');
         }
