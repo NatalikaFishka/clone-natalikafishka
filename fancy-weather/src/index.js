@@ -1,50 +1,60 @@
 import './style.scss';
 import 'weather-icons/css/weather-icons.min.css';
-import { GEOLOCATION_TOKEN, WEATHER_TOKEN } from './constants/tokens';
-import { getMap, createHeadMapScript } from './js/map';
-import { createCurrentTemperatureDom, createMapDom, createThreeDayTempDom } from './js/dom';
-import getTime from './js/getTime';
-import { weekDay } from './constants/week';
+import { getMap, createHeadMapScript, YaMaps } from './js/api/getMap';
+import getWeatherForecast from './js/api/getWeather';
+import getCountry from './js/api/getCountry';
+import getTime from './js/api/getTime';
+import getUserLocation from './js/api/getUserIP';
+import { createMainDomStructure, createCurrentTemperatureDom, createMapDom, createThreeDayTempDom, createControlsBlock } from './js/createDom';
+import { language } from './constants/languages';
+import languageSelector from './js/events/language-selector';
+import MapManager from './js/services/map-service';
 
-async function getUserLocation() {
-  return fetch(`https://ipinfo.io/json?token=${GEOLOCATION_TOKEN}`).then(response => {
-    return response.json();
-  });
-}
+const possibleLanguages = Object.keys(language);
+const possibleLanguagesValues = Object.values(language);
 
-const lang = 'en';
-
-async function getWeatherForecast(locationCoordinates) {
-
-  return fetch(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${WEATHER_TOKEN}/${locationCoordinates}?units=si&lang=${lang}`).then(response => response.json());
-}
-
-
-async function init() {
+async function init(lang) {
   try {
-    const timeData = await getTime();
-    const { loc, city } = await getUserLocation();
-    const { latitude, longitude, currently, daily } = await getWeatherForecast(loc);
+    createHeadMapScript(lang);
+    createMainDomStructure();
+    createMapDom();
+    const { loc, timezone } = await getUserLocation();
+    const timeData = await getTime(timezone);
+    const { latitude, longitude, currently, daily } = await getWeatherForecast(loc, lang);
     const { summary, icon, temperature, apparentTemperature, humidity, windSpeed } = currently;
+    const { city, country } = await getCountry(latitude, longitude, lang);
 
-    createCurrentTemperatureDom(summary, icon, city, temperature, apparentTemperature, humidity, windSpeed, weekDay[timeData.day_of_week], timeData.currentTime);
-    getMap(latitude, longitude);
+    const gatherUserDataFromApi = {
+      userLanguage: lang,
+      locationCoordinates: loc,
+      userCity: city,
+      userCountry: country,
+      timezone,
+      latitude,
+      longitude,
+      summary,
+      icon,
+      temperature,
+      apparentTemperature,
+      humidity,
+      windSpeed,
+      currentWeekDay: timeData.day_of_week,
+      nextWeekWeather: daily.data,
+      currentTime: timeData.currentTime,
+    };
 
-    for (let i = 1; i < 4; i += 1) {
-      let threeWeekDay;
-      if ((timeData.day_of_week + i) > 6) {
-        threeWeekDay = weekDay[timeData.day_of_week - 7 + i];
-      } else {
-        threeWeekDay = weekDay[timeData.day_of_week + i];
-      }
-      createThreeDayTempDom(daily.data[i].icon, threeWeekDay, daily.data[i].temperatureMax);
-    }
+    createCurrentTemperatureDom(gatherUserDataFromApi);
+    const userMap = new MapManager();
+    console.log(userMap);
+    userMap.getMap(gatherUserDataFromApi);
+    createThreeDayTempDom(gatherUserDataFromApi);
+    createControlsBlock(possibleLanguagesValues);
+    languageSelector(gatherUserDataFromApi, language);
 
   } catch (e) {
     console.log(e);
   }
 }
 
-createHeadMapScript();
-createMapDom();
-init();
+init(possibleLanguages[0]);
+

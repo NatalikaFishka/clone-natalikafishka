@@ -7,3 +7,13 @@ export const weekDay = [
   'Friday',
   'Saturday'
 ];
+
+export const weekDayShort = [
+  'Sun',
+  'Mon',
+  'Tues',
+  'Wed',
+  'Thurs',
+  'Fri',
+  'Sat'
+]

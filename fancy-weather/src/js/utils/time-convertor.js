@@ -5,7 +5,8 @@ export default function timeConverter(UNIX_timestamp) {
   const month = months[a.getMonth()];
   const date = a.getDate();
   const hour = a.getHours();
-  const min = a.getMinutes();
+  let min = a.getMinutes();
+  min = (min < 10 ? '0' : '') + min;
   const time = date + ' ' + month + ' ' + hour + ':' + min;
   return time;
 }
