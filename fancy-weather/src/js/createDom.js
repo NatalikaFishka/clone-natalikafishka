@@ -47,9 +47,14 @@ export function createCurrentTemperatureDom(userDataFromApis) {
   /* Week day and current Time */
 
   const weekDayEl = document.createElement('div');
-  weekDayEl.innerText = `${weekDayShort[userDataFromApis.currentWeekDay]} ${userDataFromApis.currentTime}`;
-  weekDayEl.className = 'date-and-time';
+  weekDayEl.innerText = `${weekDayShort[userDataFromApis.currentWeekDay]} `;
+  weekDayEl.className = 'week-day';
   cityAndDate.appendChild(weekDayEl);
+
+  const dayEl = document.createElement('div');
+  dayEl.innerText = `${userDataFromApis.currentTime}`;
+  dayEl.className = 'date-and-time';
+  cityAndDate.appendChild(dayEl);
 
   /* Summary */
   const summaryEl = document.createElement('div');
