@@ -1,8 +1,7 @@
 import getWeatherForecast from '../api/getWeather';
 import { createCurrentTemperatureDom, createThreeDayTempDom, createMapDom } from '../createDom';
 import getCountry from '../api/getCountry';
-import { createHeadMapScript, getMap, YaMaps } from '../api/getMap';
-import MapManager from '../services/map-service';
+import { createHeadMapScript, YaMaps } from '../api/getMap';
 
 export default async function switchLanguage(userObj) {
   const newUserObj = userObj;
@@ -18,13 +17,14 @@ export default async function switchLanguage(userObj) {
   contentNode.innerHTML = '';
   createCurrentTemperatureDom(newUserObj);
   createThreeDayTempDom(newUserObj);
+  newUserObj.currentMap.map.destroy();
 
   let headMapScript = document.querySelector('#map-script');
   headMapScript.remove();
-  headMapScript = createHeadMapScript(userObj.userLanguage);
+  headMapScript = createHeadMapScript(newUserObj.userLanguage);
   headMapScript.onload = (() => {
-    let userMap = new MapManager();
-    console.log(userMap.getMap(userObj));
-    userMap.getMap(newUserObj);
+    const newUserMap = new YaMaps();
+    newUserMap.init(newUserObj);
+    newUserObj.currentMap = newUserMap;
   });
 }

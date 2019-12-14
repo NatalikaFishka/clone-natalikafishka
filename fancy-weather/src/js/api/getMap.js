@@ -9,37 +9,20 @@ export function createHeadMapScript(lang) {
   return mapScript;
 }
 
-// export function getMap(latitude, longitude) {
-//   ymaps.ready(() => {
-//     const userMap = new ymaps.Map('map', {
-//       center: [latitude, longitude],
-//       zoom: 12,
-//     });
-//     const markOnTheMap = new ymaps.GeoObject({
-//       geometry: {
-//         type: 'Point',
-//         coordinates: [latitude, longitude],
-//       },
-//     });
-
-//     userMap.geoObjects.add(markOnTheMap);
-//   });
-// }
-
 export class YaMaps {
-  init(ymaps, latitude, longitude) {
-    console.log('im here');
-    this.userMap = new ymaps.Map('map', {
-      center: [latitude, longitude],
-      zoom: 12,
+  init(userObj) {
+    ymaps.ready(() => {
+      this.map = new ymaps.Map('map', {
+        center: [userObj.latitude, userObj.longitude],
+        zoom: 12,
+      });
+      const markOnTheMap = new ymaps.GeoObject({
+        geometry: {
+          type: 'Point',
+          coordinates: [userObj.latitude, userObj.longitude],
+        },
+      });
+      this.map.geoObjects.add(markOnTheMap);
     });
-    const markOnTheMap = new ymaps.GeoObject({
-      geometry: {
-        type: 'Point',
-        coordinates: [latitude, longitude],
-      },
-    });
-
-    this.userMap.geoObjects.add(markOnTheMap);
   }
 }

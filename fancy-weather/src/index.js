@@ -1,6 +1,6 @@
 import './style.scss';
 import 'weather-icons/css/weather-icons.min.css';
-import { getMap, createHeadMapScript, YaMaps } from './js/api/getMap';
+import { createHeadMapScript, YaMaps } from './js/api/getMap';
 import getWeatherForecast from './js/api/getWeather';
 import getCountry from './js/api/getCountry';
 import getTime from './js/api/getTime';
@@ -8,7 +8,6 @@ import getUserLocation from './js/api/getUserIP';
 import { createMainDomStructure, createCurrentTemperatureDom, createMapDom, createThreeDayTempDom, createControlsBlock } from './js/createDom';
 import { language } from './constants/languages';
 import languageSelector from './js/events/language-selector';
-import MapManager from './js/services/map-service';
 import timeConverter from './js/utils/time-convertor';
 
 const possibleLanguages = Object.keys(language);
@@ -45,9 +44,9 @@ async function init(lang) {
     };
 
     createCurrentTemperatureDom(gatherUserDataFromApi);
-    const userMap = new MapManager();
-    console.log(userMap);
-    userMap.getMap(gatherUserDataFromApi);
+    const userMap = new YaMaps();
+    userMap.init(gatherUserDataFromApi);
+    gatherUserDataFromApi.currentMap = userMap;
     createThreeDayTempDom(gatherUserDataFromApi);
     createControlsBlock(possibleLanguagesValues);
     languageSelector(gatherUserDataFromApi, language);
