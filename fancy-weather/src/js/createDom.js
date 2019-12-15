@@ -1,5 +1,4 @@
-import { weatherIconClassName } from '../constants/weather-classes';
-import { CONSTANTS } from '../constants/constants';
+import { CONSTANTS, WEATHER_ICON_CLASSES } from '../constants/constants';
 import timeConverter from '../js/utils/time-convertor';
 
 export function createMainDomStructure() {
@@ -37,7 +36,7 @@ export function createCurrentTemperatureDom(userDataFromApis) {
   /* Icon */
 
   const iconEl = document.createElement('span');
-  iconEl.className = weatherIconClassName[userDataFromApis.icon];
+  iconEl.className = WEATHER_ICON_CLASSES[userDataFromApis.icon];
   temperatureInfo.appendChild(iconEl);
 
   /* City and Country */
@@ -83,7 +82,7 @@ export function createCurrentTemperatureDom(userDataFromApis) {
   /* humidity */
 
   const humidityEl = document.createElement('div');
-  humidityEl.innerText = `${currentLangConstObj.humidity} ${userDataFromApis.humidity * 100}%`;
+  humidityEl.innerText = `${currentLangConstObj.humidity} ${userDataFromApis.humidity * 100} %`;
   humidityEl.className = 'humidity';
   summaryBlock.appendChild(humidityEl);
 
@@ -121,7 +120,7 @@ export function createThreeDayTempDom(userDataFromApis) {
     /* Icon */
 
     const iconEl = document.createElement('span');
-    iconEl.className = weatherIconClassName[userDataFromApis.nextWeekWeather[i].icon];
+    iconEl.className = WEATHER_ICON_CLASSES[userDataFromApis.nextWeekWeather[i].icon];
     singleDayInfoContainer.appendChild(iconEl);
 
     /* Temperature */

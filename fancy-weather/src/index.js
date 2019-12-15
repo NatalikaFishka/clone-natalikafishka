@@ -6,13 +6,12 @@ import getCountry from './js/api/getCountry';
 import getTime from './js/api/getTime';
 import getUserLocation from './js/api/getUserIP';
 import { createMainDomStructure, createCurrentTemperatureDom, createMapDom, createThreeDayTempDom, createControlsBlock } from './js/createDom';
-import { language } from './constants/languages';
+import { LANGUAGES } from './constants/constants';
 import languageSelector from './js/events/language-selector';
-import timeConverter from './js/utils/time-convertor';
 import timeCounter from './js/events/time';
 
-const possibleLanguages = Object.keys(language);
-const possibleLanguagesValues = Object.values(language);
+const possibleLanguages = Object.keys(LANGUAGES);
+const possibleLanguagesValues = Object.values(LANGUAGES);
 
 async function init(lang) {
   try {
@@ -50,7 +49,7 @@ async function init(lang) {
     gatherUserDataFromApi.currentMap = userMap;
     createThreeDayTempDom(gatherUserDataFromApi);
     createControlsBlock(possibleLanguagesValues);
-    languageSelector(gatherUserDataFromApi, language);
+    languageSelector(gatherUserDataFromApi);
 
     gatherUserDataFromApi.usersTimeDomEl = document.querySelector('.date-and-time');
     timeCounter(gatherUserDataFromApi);
