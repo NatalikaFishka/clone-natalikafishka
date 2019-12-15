@@ -9,6 +9,7 @@ import { createMainDomStructure, createCurrentTemperatureDom, createMapDom, crea
 import { language } from './constants/languages';
 import languageSelector from './js/events/language-selector';
 import timeConverter from './js/utils/time-convertor';
+import timeCounter from './js/events/time';
 
 const possibleLanguages = Object.keys(language);
 const possibleLanguagesValues = Object.values(language);
@@ -40,7 +41,7 @@ async function init(lang) {
       windSpeed,
       currentWeekDay: timeData.day_of_week,
       nextWeekWeather: daily.data,
-      currentTime: timeConverter(timeData.unixtime),
+      currentUnixTime: timeData.unixtime,
     };
 
     createCurrentTemperatureDom(gatherUserDataFromApi);
@@ -51,12 +52,15 @@ async function init(lang) {
     createControlsBlock(possibleLanguagesValues);
     languageSelector(gatherUserDataFromApi, language);
 
-    const usersTime = document.querySelector('.date-and-time');
-    let initialTime = timeData.unixtime;
-    setInterval(() => {
-      initialTime += 1;
-      usersTime.innerText = timeConverter(initialTime);
-    }, 1000);
+    gatherUserDataFromApi.usersTimeDomEl = document.querySelector('.date-and-time');
+    timeCounter(gatherUserDataFromApi);
+
+    // const usersTime = document.querySelector('.date-and-time');
+    // let initialTime = gatherUserDataFromApi.currentUnixTime;
+    // setInterval(() => {
+    //   initialTime += 1;
+    //   usersTime.innerText = timeConverter(initialTime, lang);
+    // }, 1000);
 
   } catch (e) {
     console.log(e);

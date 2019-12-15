@@ -1,5 +1,6 @@
 import { weatherIconClassName } from '../constants/weather-classes';
-import { weekDay, weekDayShort } from '../constants/week';
+import { CONSTANTS } from '../constants/constants';
+import timeConverter from '../js/utils/time-convertor';
 
 export function createMainDomStructure() {
   const structureContainer = document.createDocumentFragment();
@@ -18,6 +19,7 @@ export function createMainDomStructure() {
 }
 
 export function createCurrentTemperatureDom(userDataFromApis) {
+  const currentLangConstObj = CONSTANTS[userDataFromApis.userLanguage];
 
   const infoContainer = document.createDocumentFragment();
 
@@ -47,12 +49,14 @@ export function createCurrentTemperatureDom(userDataFromApis) {
   /* Week day and current Time */
 
   const weekDayEl = document.createElement('div');
-  weekDayEl.innerText = `${weekDayShort[userDataFromApis.currentWeekDay]} `;
+  const weekDayLangShortArr = currentLangConstObj.weekDayShort;
+  console.log(weekDayLangShortArr)
+  weekDayEl.innerText = `${weekDayLangShortArr[userDataFromApis.currentWeekDay]} `;
   weekDayEl.className = 'week-day';
   cityAndDate.appendChild(weekDayEl);
 
   const dayEl = document.createElement('div');
-  dayEl.innerText = `${userDataFromApis.currentTime}`;
+  dayEl.innerText = timeConverter(userDataFromApis.currentUnixTime, userDataFromApis.userLanguage);
   dayEl.className = 'date-and-time';
   cityAndDate.appendChild(dayEl);
 
@@ -65,21 +69,21 @@ export function createCurrentTemperatureDom(userDataFromApis) {
   /* apparentTemperature */
 
   const apparentTempEl = document.createElement('div');
-  apparentTempEl.innerText = `Feels like: ${Math.round(userDataFromApis.apparentTemperature)}°`;
+  apparentTempEl.innerText = `${currentLangConstObj.apparentTempLabel} ${Math.round(userDataFromApis.apparentTemperature)}°`;
   apparentTempEl.className = 'apparent-temperature';
   summaryBlock.appendChild(apparentTempEl);
 
   /* windSpeed */
 
   const windSpeedEl = document.createElement('div');
-  windSpeedEl.innerText = `Wind: ${userDataFromApis.windSpeed}`;
+  windSpeedEl.innerText = `${currentLangConstObj.wind} ${userDataFromApis.windSpeed} ${currentLangConstObj.windUnits}`;
   windSpeedEl.className = 'wind-speed';
   summaryBlock.appendChild(windSpeedEl);
 
   /* humidity */
 
   const humidityEl = document.createElement('div');
-  humidityEl.innerText = `Humidity: ${userDataFromApis.humidity * 100}%`;
+  humidityEl.innerText = `${currentLangConstObj.humidity} ${userDataFromApis.humidity * 100}%`;
   humidityEl.className = 'humidity';
   summaryBlock.appendChild(humidityEl);
 
@@ -94,20 +98,22 @@ export function createCurrentTemperatureDom(userDataFromApis) {
 export function createMapDom() {
   const mapEl = document.createElement('div');
   mapEl.setAttribute('id', 'map');
-  mapEl.setAttribute('style', 'width: 600px; height: 400px');
   const mapContainer = document.querySelector('map');
   mapContainer.appendChild(mapEl);
 }
 
 export function createThreeDayTempDom(userDataFromApis) {
+  const currentLangConstObj = CONSTANTS[userDataFromApis.userLanguage];
+
   const threeDayInfoContainer = document.createElement('div');
 
   for (let i = 1; i < 4; i += 1) {
     let threeWeekDay;
+    const weekDayLangArr = currentLangConstObj.weekDay;
     if ((userDataFromApis.currentWeekDay + i) > 6) {
-      threeWeekDay = weekDay[userDataFromApis.currentWeekDay - 7 + i];
+      threeWeekDay = weekDayLangArr[userDataFromApis.currentWeekDay - 7 + i];
     } else {
-      threeWeekDay = weekDay[userDataFromApis.currentWeekDay + i];
+      threeWeekDay = weekDayLangArr[userDataFromApis.currentWeekDay + i];
     }
 
     const singleDayInfoContainer = document.createElement('div');

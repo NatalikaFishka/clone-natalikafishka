@@ -1,19 +1,59 @@
-export const weekDay = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday'
-];
+export const weekDay = {
+  en: [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday'
+  ],
+  ru: [
+    'Воскресенье',
+    'Понедельник',
+    'Вторник',
+    'Среда',
+    'Четверг',
+    'Пятница',
+    'Суббота'
+  ],
+  be: [
+    'Нядзеля',
+    'Панядзелак',
+    'Аўторак',
+    'Серада',
+    'Серада',
+    'Пятніца',
+    'Субота'
+  ],
+};
 
-export const weekDayShort = [
-  'Sun',
-  'Mon',
-  'Tues',
-  'Wed',
-  'Thurs',
-  'Fri',
-  'Sat'
-]
+export const weekDayShort = {
+  en: [
+    'Sun',
+    'Mon',
+    'Tue',
+    'Wed',
+    'Thu',
+    'Fri',
+    'Sat'
+  ],
+  ru: [
+    'Вск',
+    'Пнд',
+    'Втр',
+    'Срд',
+    'Чтв',
+    'Птн',
+    'Сбт'
+  ],
+  be: [
+    'Няд',
+    'Пнд',
+    'Аўт',
+    'Сер',
+    'Чцв',
+    'Пят',
+    'Суб'
+  ],
+}

@@ -15,6 +15,7 @@ export class YaMaps {
       this.map = new ymaps.Map('map', {
         center: [userObj.latitude, userObj.longitude],
         zoom: 12,
+        controls: [],
       });
       const markOnTheMap = new ymaps.GeoObject({
         geometry: {
