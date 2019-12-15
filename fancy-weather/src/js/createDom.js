@@ -61,7 +61,9 @@ export function createCurrentTemperatureDom(userDataFromApis) {
 
   /* Summary */
   const summaryEl = document.createElement('div');
-  summaryEl.innerText = userDataFromApis.summary;
+  const firstLetter = userDataFromApis.summary.substr(0, 1);
+  const tail = userDataFromApis.summary.substr(1).toLowerCase();
+  summaryEl.innerText = firstLetter + tail;
   summaryEl.className = 'summary';
   summaryBlock.appendChild(summaryEl);
 
