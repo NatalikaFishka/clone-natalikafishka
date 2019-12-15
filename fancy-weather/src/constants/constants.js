@@ -1,4 +1,6 @@
-export const LANGUAGES = { en: 'EN', ru: 'РУ', be: 'БЕ' }
+export const LANGUAGES = { en: 'EN', ru: 'РУ', be: 'БЕ' };
+
+export const TEMPERATURE_UNITS = { us: '°F', si: '°C' };
 
 export const CONSTANTS = {
     en: {

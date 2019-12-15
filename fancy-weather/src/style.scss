@@ -97,6 +97,7 @@ controls {
     background-repeat: no-repeat;
     border-radius: 5px;
     background-size: contain;
+    margin: 0 0.5rem;
   }
   .language-selection-set {
     display: flex;
@@ -110,6 +111,9 @@ controls {
     margin: 0 0.5rem;
     padding: 0.5rem;
     box-sizing: border-box;
+    &:hover {
+      cursor: pointer;
+    }
     &.active {
       border-bottom-right-radius: 0;
       border-bottom-left-radius: 0;
@@ -148,6 +152,28 @@ controls {
        &.rotate {
         transform: rotate(180deg);
         transition: 0.2s ease-in-out;
+      }
+    }
+  }
+
+  .units-selection-set {
+    display: flex;
+    width: fit-content;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: $darkGray;
+    border-radius: 5px;
+    margin: 0 0.5rem;
+    box-sizing: border-box;
+    overflow: hidden;
+    div {
+      padding: 30% 1rem;
+      &:hover {
+        cursor: pointer;
+      }
+      &.selected-unit-system {
+        background-color: $lightGray;
       }
     }
   }

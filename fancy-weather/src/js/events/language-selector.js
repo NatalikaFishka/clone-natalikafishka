@@ -1,4 +1,4 @@
-import switchLanguage from '../utils/switchLanguage';
+import switchLanguage from '../utils/switch-language';
 import { LANGUAGES } from '../../constants/constants';
 
 export default function languageSelector(userObj) {
@@ -18,6 +18,6 @@ export default function languageSelector(userObj) {
       const newUserObj = userObj;
       newUserObj.userLanguage = possibleLangKeys[possibleLangValues.indexOf(currentLang.innerHTML)];
       await switchLanguage(newUserObj);
-    }
+    };
   });
 }

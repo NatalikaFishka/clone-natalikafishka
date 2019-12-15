@@ -6,11 +6,11 @@ import { createHeadMapScript, YaMaps } from '../api/getMap';
 export default async function switchLanguage(userObj) {
   const newUserObj = userObj;
 
-  const { latitude, longitude, userLanguage, locationCoordinates } = newUserObj;
+  const { latitude, longitude, userLanguage, locationCoordinates, userUnitSystem } = newUserObj;
 
   // perform new API request to get info with selected language and set it to user object
 
-  const { currently } = await getWeatherForecast(locationCoordinates, userLanguage);
+  const { currently } = await getWeatherForecast(locationCoordinates, userLanguage, userUnitSystem);
   const { city, country } = await getCountry(latitude, longitude, userLanguage);
 
   // set new info to user object

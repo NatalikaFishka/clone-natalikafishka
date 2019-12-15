@@ -6,24 +6,32 @@ import getCountry from './js/api/getCountry';
 import getTime from './js/api/getTime';
 import getUserLocation from './js/api/getUserIP';
 import { createMainDomStructure, createCurrentTemperatureDom, createMapDom, createThreeDayTempDom, createControlsBlock } from './js/createDom';
-import { LANGUAGES } from './constants/constants';
+import { LANGUAGES, TEMPERATURE_UNITS } from './constants/constants';
 import languageSelector from './js/events/language-selector';
 import timeCounter from './js/events/time';
+import unitSelector from './js/events/units-selector';
 
 const possibleLanguages = Object.keys(LANGUAGES);
 const possibleLanguagesValues = Object.values(LANGUAGES);
+const possibleUnitsSystems = Object.keys(TEMPERATURE_UNITS);
 
-async function init(lang) {
+const defaultSettings = {
+  language: possibleLanguages[0],
+  units: possibleUnitsSystems[1],
+}
+
+async function init(lang, unitSystem) {
   try {
     createHeadMapScript(lang);
     createMainDomStructure();
     const { loc, timezone } = await getUserLocation();
     const timeData = await getTime(timezone);
-    const { latitude, longitude, currently, daily } = await getWeatherForecast(loc, lang);
+    const { latitude, longitude, currently, daily } = await getWeatherForecast(loc, lang, unitSystem);
     const { summary, icon, temperature, apparentTemperature, humidity, windSpeed } = currently;
     const { city, country } = await getCountry(latitude, longitude, lang);
 
     const gatherUserDataFromApi = {
+      userUnitSystem: unitSystem,
       userLanguage: lang,
       locationCoordinates: loc,
       userCity: city,
@@ -49,6 +57,7 @@ async function init(lang) {
     gatherUserDataFromApi.currentMap = userMap;
     createThreeDayTempDom(gatherUserDataFromApi);
     createControlsBlock(possibleLanguagesValues);
+    unitSelector(gatherUserDataFromApi);
     languageSelector(gatherUserDataFromApi);
 
     gatherUserDataFromApi.usersTimeDomEl = document.querySelector('.date-and-time');
@@ -59,4 +68,4 @@ async function init(lang) {
   }
 }
 
-init(possibleLanguages[0]);
+init(defaultSettings.language, defaultSettings.units);

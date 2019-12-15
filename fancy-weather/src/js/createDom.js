@@ -1,4 +1,4 @@
-import { CONSTANTS, WEATHER_ICON_CLASSES } from '../constants/constants';
+import { CONSTANTS, WEATHER_ICON_CLASSES, TEMPERATURE_UNITS } from '../constants/constants';
 import timeConverter from '../js/utils/time-convertor';
 import conversDMS from '../js/utils/convertDMS';
 
@@ -50,7 +50,6 @@ export function createCurrentTemperatureDom(userDataFromApis) {
 
   const weekDayEl = document.createElement('div');
   const weekDayLangShortArr = currentLangConstObj.weekDayShort;
-  console.log(weekDayLangShortArr)
   weekDayEl.innerText = `${weekDayLangShortArr[userDataFromApis.currentWeekDay]} `;
   weekDayEl.className = 'week-day';
   cityAndDate.appendChild(weekDayEl);
@@ -148,7 +147,7 @@ export function createThreeDayTempDom(userDataFromApis) {
     /* Temperature */
 
     const tempEl = document.createElement('div');
-    tempEl.innerText = Math.round(userDataFromApis.nextWeekWeather[i].temperatureMax);
+    tempEl.innerText = Math.round(userDataFromApis.nextWeekWeather[i].temperatureMax) + '°';
     tempEl.className = 'temperature';
     singleDayInfoContainer.appendChild(tempEl);
 
@@ -215,6 +214,24 @@ export function createControlsBlock(languagesArr) {
   switchLangEl.appendChild(switchLangIcon);
 
   controlsElContainer.appendChild(switchLangEl);
+
+  /* Switch temperature units selection button */
+  const possibleUnits = Object.entries(TEMPERATURE_UNITS);
+  const switchUnitsEl = document.createElement('div');
+  switchUnitsEl.className = 'units-selection-set';
+
+  possibleUnits.forEach((units) => {
+    const unitContainer = document.createElement('div');
+    unitContainer.classList.add('unit-system');
+    unitContainer.classList.add(units[0]);
+    unitContainer.innerText = units[1];
+    switchUnitsEl.appendChild(unitContainer);
+  });
+
+  controlsElContainer.appendChild(switchUnitsEl);
+
+
+  /* Insert all to controls tag */
 
   controlsContainer.appendChild(controlsElContainer);
 }
