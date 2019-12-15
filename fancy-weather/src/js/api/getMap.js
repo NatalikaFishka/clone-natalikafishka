@@ -17,6 +17,7 @@ export class YaMaps {
         zoom: 12,
         controls: [],
       });
+      this.map.behaviors.disable(['drag']);
       const markOnTheMap = new ymaps.GeoObject({
         geometry: {
           type: 'Point',

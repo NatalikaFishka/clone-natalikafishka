@@ -17,7 +17,6 @@ async function init(lang) {
   try {
     createHeadMapScript(lang);
     createMainDomStructure();
-    createMapDom();
     const { loc, timezone } = await getUserLocation();
     const timeData = await getTime(timezone);
     const { latitude, longitude, currently, daily } = await getWeatherForecast(loc, lang);
@@ -44,6 +43,7 @@ async function init(lang) {
     };
 
     createCurrentTemperatureDom(gatherUserDataFromApi);
+    createMapDom(gatherUserDataFromApi);
     const userMap = new YaMaps();
     userMap.init(gatherUserDataFromApi);
     gatherUserDataFromApi.currentMap = userMap;
@@ -54,21 +54,9 @@ async function init(lang) {
     gatherUserDataFromApi.usersTimeDomEl = document.querySelector('.date-and-time');
     timeCounter(gatherUserDataFromApi);
 
-    // const usersTime = document.querySelector('.date-and-time');
-    // let initialTime = gatherUserDataFromApi.currentUnixTime;
-    // setInterval(() => {
-    //   initialTime += 1;
-    //   usersTime.innerText = timeConverter(initialTime, lang);
-    // }, 1000);
-
   } catch (e) {
     console.log(e);
   }
 }
 
 init(possibleLanguages[0]);
-
-// const usersTime = document.querySelector('.date-and-time');
-// function clock(userObj) {
-//   usersTime.innerText = userObj.currentTime;
-// }

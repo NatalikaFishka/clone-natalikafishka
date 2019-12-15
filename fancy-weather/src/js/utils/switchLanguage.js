@@ -2,7 +2,6 @@ import getWeatherForecast from '../api/getWeather';
 import { createCurrentTemperatureDom, createThreeDayTempDom, createMapDom } from '../createDom';
 import getCountry from '../api/getCountry';
 import { createHeadMapScript, YaMaps } from '../api/getMap';
-import timeCounter from '../events/time';
 
 export default async function switchLanguage(userObj) {
   const newUserObj = userObj;
@@ -35,10 +34,13 @@ export default async function switchLanguage(userObj) {
   newUserObj.currentMap.map.destroy();
   let headMapScript = document.querySelector('#map-script');
   headMapScript.remove();
+  let mapDomElement = document.querySelector('map');
+  mapDomElement.innerHTML = '';
 
   // create new map instance 
 
   headMapScript = createHeadMapScript(newUserObj.userLanguage);
+  createMapDom(newUserObj);
   headMapScript.onload = (() => {
     const newUserMap = new YaMaps();
     newUserMap.init(newUserObj);
@@ -47,4 +49,6 @@ export default async function switchLanguage(userObj) {
 
   // set time counter 
   newUserObj.usersTimeDomEl = document.querySelector('.date-and-time');
+
+  // 
 }

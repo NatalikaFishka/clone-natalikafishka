@@ -1,5 +1,6 @@
 import { CONSTANTS, WEATHER_ICON_CLASSES } from '../constants/constants';
 import timeConverter from '../js/utils/time-convertor';
+import conversDMS from '../js/utils/convertDMS';
 
 export function createMainDomStructure() {
   const structureContainer = document.createDocumentFragment();
@@ -94,11 +95,32 @@ export function createCurrentTemperatureDom(userDataFromApis) {
   mainContainer.appendChild(infoContainer);
 }
 
-export function createMapDom() {
+export function createMapDom(userDataFromApis) {
+  const currentLangConstObj = CONSTANTS[userDataFromApis.userLanguage];
+  const convertedDMS = conversDMS(userDataFromApis);
+
+  const mapElsContainer = document.createDocumentFragment();
+  const mapContainer = document.querySelector('map');
+
+  const mapElContainer = document.createElement('div');
+  mapElContainer.setAttribute('id', 'yamaps-map');
+
   const mapEl = document.createElement('div');
   mapEl.setAttribute('id', 'map');
-  const mapContainer = document.querySelector('map');
-  mapContainer.appendChild(mapEl);
+  mapElContainer.appendChild(mapEl);
+  mapElsContainer.appendChild(mapElContainer);
+
+  const latitudeEl = document.createElement('div');
+  latitudeEl.setAttribute('id', 'latitude');
+  latitudeEl.innerText = `${currentLangConstObj.latitudeLabel} ${convertedDMS.convertedLatitude}`;
+  mapElsContainer.appendChild(latitudeEl);
+
+  const longitudeEl = document.createElement('div');
+  longitudeEl.setAttribute('id', 'longitude');
+  longitudeEl.innerText = `${currentLangConstObj.longitudeLabel} ${convertedDMS.convertedLongitude}`;
+  mapElsContainer.appendChild(longitudeEl);
+
+  mapContainer.appendChild(mapElsContainer);
 }
 
 export function createThreeDayTempDom(userDataFromApis) {

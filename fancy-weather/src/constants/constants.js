@@ -38,6 +38,8 @@ export const CONSTANTS = {
         apparentTempLabel: 'Feels like',
         wind: 'Wind:',
         humidity: 'Humidity:',
+        latitudeLabel: 'Latitude:',
+        longitudeLabel: 'Longitude:',
     },
     ru: {
         weekDay: [
@@ -76,6 +78,8 @@ export const CONSTANTS = {
         apparentTempLabel: 'Ощущается как:',
         wind: 'Ветер:',
         humidity: 'Влажность:',
+        latitudeLabel: 'Широта:',
+        longitudeLabel: 'Долгота:',
     },
     be: {
         weekDay: [
@@ -114,6 +118,8 @@ export const CONSTANTS = {
         apparentTempLabel: 'Адчуваецца як:',
         wind: 'Вецер:',
         humidity: 'Вільготнасць:',
+        latitudeLabel: 'Шырата:',
+        longitudeLabel: 'Даўгата:',
     },
 };
 
