@@ -1,4 +1,4 @@
-import switchLanguage from '../utils/switch-language';
+import setContentPerUserSettings from '../utils/display-user-settings';
 import { LANGUAGES } from '../../constants/constants';
 
 export default function languageSelector(userObj) {
@@ -17,7 +17,7 @@ export default function languageSelector(userObj) {
       currentLang.innerHTML = e.target.innerHTML;
       const newUserObj = userObj;
       newUserObj.userLanguage = possibleLangKeys[possibleLangValues.indexOf(currentLang.innerHTML)];
-      await switchLanguage(newUserObj);
+      await setContentPerUserSettings(newUserObj);
     };
   });
 }

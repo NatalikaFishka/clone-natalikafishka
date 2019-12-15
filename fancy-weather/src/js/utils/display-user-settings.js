@@ -3,7 +3,7 @@ import { createCurrentTemperatureDom, createThreeDayTempDom, createMapDom } from
 import getCountry from '../api/getCountry';
 import { createHeadMapScript, YaMaps } from '../api/getMap';
 
-export default async function switchLanguage(userObj) {
+export default async function setContentPerUserSettings(userObj) {
   const newUserObj = userObj;
 
   const { latitude, longitude, userLanguage, locationCoordinates, userUnitSystem } = newUserObj;
@@ -49,6 +49,4 @@ export default async function switchLanguage(userObj) {
 
   // set time counter 
   newUserObj.usersTimeDomEl = document.querySelector('.date-and-time');
-
-  // 
 }

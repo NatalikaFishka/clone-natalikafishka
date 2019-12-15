@@ -235,3 +235,24 @@ export function createControlsBlock(languagesArr) {
 
   controlsContainer.appendChild(controlsElContainer);
 }
+
+export function createSearchBlock() {
+  const searchElContainer = document.createDocumentFragment();
+  const searchContainer = document.querySelector('search');
+
+  const searchForm = document.createElement('form');
+
+  const searchInput = document.createElement('input');
+  searchInput.setAttribute('type', 'text');
+  searchInput.setAttribute('placeholder', 'Search for city');
+  searchInput.setAttribute('id', 'form-input-text');
+  searchForm.appendChild(searchInput);
+
+  const searchButton = document.createElement('input');
+  searchButton.setAttribute('type', 'submit');
+  searchButton.innerText = 'Search';
+  searchForm.appendChild(searchButton);
+
+  searchElContainer.appendChild(searchForm);
+  searchContainer.appendChild(searchElContainer);
+}

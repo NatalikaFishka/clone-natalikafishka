@@ -5,11 +5,12 @@ import getWeatherForecast from './js/api/getWeather';
 import getCountry from './js/api/getCountry';
 import getTime from './js/api/getTime';
 import getUserLocation from './js/api/getUserIP';
-import { createMainDomStructure, createCurrentTemperatureDom, createMapDom, createThreeDayTempDom, createControlsBlock } from './js/createDom';
+import { createMainDomStructure, createCurrentTemperatureDom, createMapDom, createThreeDayTempDom, createControlsBlock, createSearchBlock, createFormSubmitHeadScript } from './js/createDom';
 import { LANGUAGES, TEMPERATURE_UNITS } from './constants/constants';
 import languageSelector from './js/events/language-selector';
 import timeCounter from './js/events/time';
 import unitSelector from './js/events/units-selector';
+import searchCity from './js/events/search-form-submit';
 
 const possibleLanguages = Object.keys(LANGUAGES);
 const possibleLanguagesValues = Object.values(LANGUAGES);
@@ -59,6 +60,10 @@ async function init(lang, unitSystem) {
     createControlsBlock(possibleLanguagesValues);
     unitSelector(gatherUserDataFromApi);
     languageSelector(gatherUserDataFromApi);
+
+    createSearchBlock();
+    searchCity(gatherUserDataFromApi);
+
 
     gatherUserDataFromApi.usersTimeDomEl = document.querySelector('.date-and-time');
     timeCounter(gatherUserDataFromApi);
