@@ -49,6 +49,8 @@ async function init(lang, unitSystem) {
       currentWeekDay: timeData.day_of_week,
       nextWeekWeather: daily.data,
       currentUnixTime: timeData.unixtime,
+      userUtcOffset: timeData.raw_offset,
+      searchUtcOffset: timeData.raw_offset,
     };
 
     createCurrentTemperatureDom(gatherUserDataFromApi);

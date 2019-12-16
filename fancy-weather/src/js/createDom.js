@@ -49,7 +49,7 @@ export function createCurrentTemperatureDom(userDataFromApis) {
   cityAndDate.appendChild(weekDayEl);
 
 
-  const usersDate = timeConverter(userDataFromApis.currentUnixTime, userDataFromApis.userLanguage);
+  const usersDate = timeConverter(userDataFromApis);
   const dayEl = document.createElement('div');
   dayEl.innerText = `${usersDate.currentDate}`;
   dayEl.className = 'date';

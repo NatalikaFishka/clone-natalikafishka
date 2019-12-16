@@ -32,9 +32,10 @@ export default async function getSearchResults(searchInput, userObj) {
   newUserObj.longitude = geometry.lng;
   newUserObj.locationCoordinates = `${geometry.lat},${geometry.lng}`;
 
-  const { unixtime, day_of_week } = await getTime(newUserObj.timezone);
+  const { raw_offset, unixtime, day_of_week } = await getTime(newUserObj.timezone);
   newUserObj.unixtime = unixtime;
   newUserObj.currentWeekDay = day_of_week;
+  newUserObj.searchUtcOffset = raw_offset;
 
   const { currently, daily } = await getWeatherForecast(newUserObj.locationCoordinates, newUserObj.userLanguage, newUserObj.userUnitSystem);
   const { summary, icon, temperature, apparentTemperature, humidity, windSpeed } = currently;

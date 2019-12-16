@@ -1,8 +1,9 @@
 import { CONSTANTS } from '../../constants/constants'
 
-export default function timeConverter(unixTimestamp, lang) {
-  const monthLangArr = CONSTANTS[lang].months;
-  const a = new Date(unixTimestamp * 1000);
+export default function timeConverter(userObj) {
+  const monthLangArr = CONSTANTS[userObj.userLanguage].months;
+  const finalUnixTime = userObj.currentUnixTime - userObj.userUtcOffset + userObj.searchUtcOffset;
+  const a = new Date(finalUnixTime * 1000);
   const month = monthLangArr[a.getMonth()];
   const date = a.getDate();
   const hour = a.getHours();
