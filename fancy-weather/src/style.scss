@@ -1,5 +1,15 @@
 
 @font-face {
+  font-family: 'Montserrat Medium';
+  src: url('../assets/fonts/Montserrat/Montserrat-Medium.eot');
+  src: url('../assets/fonts/Montserrat/Montserrat-Medium.eot?#iefix') format('embedded-opentype'),
+  url('../assets/fonts/Montserrat/Montserrat-Medium.woff') format('woff'),
+  url('../assets/fonts/Montserrat/Montserrat-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  }
+
+@font-face {
   font-family: 'icomoon';
   src:  url('../assets/icons/fonts/icomoon.eot?uimoul');
   src:  url('../assets/icons/fonts/icomoon.eot?uimoul#iefix') format('embedded-opentype'),
@@ -75,14 +85,34 @@
 $whitePrimary: rgba(255, 255, 255, 1);
 $hoverBackColor: rgba(174, 181, 185, 1);
 $backOverlay: rgba(8, 15, 26, 1);
-$lightGray: rgba(174, 181, 185, 0.5);
-$darkGray: rgba(76, 82, 85, 1);
+$lightGray: rgba(255,255,255, 0.3);
+$darkGray: rgba(255,255,255,0.1);
+$fontPrimary: 'Montserrat Medium';
+$cloudColor: #E4E3E3;
 
 html {
 background-color: $backOverlay;
 color: $whitePrimary;
+font-family: $fontPrimary;
 }
+
+body {
+  display: grid;
+  grid-template: 20% max-content / minmax(max-content, 40%) max-content;
+  align-items: center;
+  grid-template-areas:
+      "controls search"
+      "content map";
+  gap: 2rem;
+  width: max-content;
+  height: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
 controls {
+  grid-area: controls;
+  font-size: 0.8rem;
   display: flex;
   height: 2.5rem;
   .load-image {
@@ -126,7 +156,7 @@ controls {
     }
     .language-droplist {
       position: absolute;
-      background-color: $darkGray;
+      background-color: #53575F;
       width: 100%;
       align-self: flex-start;
       top: 2.5rem;
@@ -180,17 +210,152 @@ controls {
 }
 
 map {
+  grid-area: map;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 1.2rem;
   #yamaps-map {
-    width: 400px; 
+    width: 400px;
     height: 400px;
     border-radius: 3rem;
     overflow: hidden;
     display: block;
     pointer-events:none;
+    justify-self: center;
+    margin: 2rem 0;
     #map {
-      width: 400px; 
-      height: 450px;    
+      width: 400px;
+      height: 450px;
     }
   }
-  
+
+}
+
+search {
+  grid-area: search;
+  font-size: 0.8rem;
+  width: 100%;
+  justify-self: center;
+  form {
+    height: 2.5rem;
+  input[type=text] {
+    outline: none;
+    background-color: $darkGray;
+    border: 1px solid $lightGray;
+    border-radius: 5px 0 0 5px;
+    height: 100%;
+    box-sizing: border-box;
+    color: $whitePrimary;
+    padding: 0 0.5rem;
+    width: 75%;
+    &::placeholder {
+      color: $whitePrimary;
+    }
+  }
+
+  input[type=submit] {
+    background-color: $lightGray;
+    border: none;
+    outline: none;
+    border-radius: 0 5px 5px 0;
+    height: 100%;
+    box-sizing: border-box;
+    color: $whitePrimary;
+    padding: 0 0.5rem;
+    font-weight: 600;
+    width: 25%;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+}
+
+content {
+  grid-area: content;
+  margin-right: 3rem;
+  .city-and-date {
+    font-size: 1.3rem;
+    .city {
+      text-transform: uppercase;
+      font-size: 2.5rem;
+      font-weight: 600;
+    }
+    .week-day {
+      display: inline-block;
+    }
+    .date {
+      display: inline-block;
+      margin: 0 1rem;
+    }
+    .time {
+      display: inline-block;
+    }
+  }
+
+  .current-temperature {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    margin: 2rem 0;;
+    .temperature {
+      display: flex;
+      font-size: 20rem;
+      line-height: 20rem;
+    }
+    span {
+      font-size: 10rem;
+      position: absolute;
+      left: 50%;
+      color: $cloudColor;
+      &.degree-unit {
+        position: initial;
+        color: $whitePrimary;
+        z-index: 10;
+        line-height: initial;
+        margin-right: 1rem;
+      }
+    }
+    .summary {
+      align-self: flex-end;
+      font-size: 1.5rem;
+      margin-left: 5rem;
+      div {
+        margin: 0.5rem 1rem;
+      }
+    }
+  }
+
+  .three-day-temperature {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5rem;
+    .temperature {
+      font-size: 5rem;
+      display: flex;
+      .icon {
+        color: $cloudColor;
+        font-size: 3rem;
+      }
+    }
+    .week-day {
+      text-transform: uppercase;
+    }
+  }
+}
+
+@media only screen and (max-width: 1025px) {
+  body {
+    grid-template: 1fr / 1fr 1fr;
+    justify-items: center;
+    grid-template-areas:
+        "controls search"
+        "content content"
+        "map map";
+
+    content {
+      margin: 0;
+    }
+  }
 }

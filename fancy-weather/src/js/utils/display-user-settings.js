@@ -37,7 +37,7 @@ export default async function setContentPerUserSettings(userObj) {
   let mapDomElement = document.querySelector('map');
   mapDomElement.innerHTML = '';
 
-  // create new map instance 
+  // create new map instance
 
   headMapScript = createHeadMapScript(newUserObj.userLanguage);
   createMapDom(newUserObj);
@@ -47,6 +47,6 @@ export default async function setContentPerUserSettings(userObj) {
     newUserObj.currentMap = newUserMap;
   });
 
-  // set time counter 
-  newUserObj.usersTimeDomEl = document.querySelector('.date-and-time');
+  // set time counter
+  newUserObj.usersTimeDomEl = document.querySelector('.time');
 }

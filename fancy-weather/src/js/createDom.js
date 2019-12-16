@@ -1,6 +1,8 @@
 import { CONSTANTS, WEATHER_ICON_CLASSES, TEMPERATURE_UNITS } from '../constants/constants';
-import timeConverter from '../js/utils/time-convertor';
-import conversDMS from '../js/utils/convertDMS';
+import timeConverter from './utils/time-convertor';
+import convertDMS from './utils/convertDMS';
+
+const degreeUnit = '<span class="degree-unit">°</span>';
 
 export function createMainDomStructure() {
   const structureContainer = document.createDocumentFragment();
@@ -23,22 +25,14 @@ export function createCurrentTemperatureDom(userDataFromApis) {
 
   const infoContainer = document.createDocumentFragment();
 
-  const temperatureInfo = document.createElement('div');
   const cityAndDate = document.createElement('div');
+  cityAndDate.classList.add('city-and-date');
+
+  const temperatureInfo = document.createElement('div');
+  temperatureInfo.classList.add('current-temperature');
+
   const summaryBlock = document.createElement('div');
-
-  /* Temperature */
-
-  const tempEl = document.createElement('div');
-  tempEl.innerText = `${Math.round(userDataFromApis.temperature)}°`;
-  tempEl.className = 'temperature';
-  temperatureInfo.appendChild(tempEl);
-
-  /* Icon */
-
-  const iconEl = document.createElement('span');
-  iconEl.className = WEATHER_ICON_CLASSES[userDataFromApis.icon];
-  temperatureInfo.appendChild(iconEl);
+  summaryBlock.classList.add('summary');
 
   /* City and Country */
   const cityEl = document.createElement('div');
@@ -54,17 +48,37 @@ export function createCurrentTemperatureDom(userDataFromApis) {
   weekDayEl.className = 'week-day';
   cityAndDate.appendChild(weekDayEl);
 
+
+  const usersDate = timeConverter(userDataFromApis.currentUnixTime, userDataFromApis.userLanguage);
   const dayEl = document.createElement('div');
-  dayEl.innerText = timeConverter(userDataFromApis.currentUnixTime, userDataFromApis.userLanguage);
-  dayEl.className = 'date-and-time';
+  dayEl.innerText = `${usersDate.currentDate}`;
+  dayEl.className = 'date';
   cityAndDate.appendChild(dayEl);
+
+  const timeEl = document.createElement('div');
+  timeEl.innerText = `${usersDate.time}`;
+  timeEl.className = 'time';
+  cityAndDate.appendChild(timeEl);
+
+  /* Temperature */
+
+  const tempEl = document.createElement('div');
+  tempEl.innerHTML = `${Math.round(userDataFromApis.temperature)}${degreeUnit}`;
+  tempEl.className = 'temperature';
+  temperatureInfo.appendChild(tempEl);
+
+  /* Icon */
+
+  const iconEl = document.createElement('span');
+  iconEl.className = WEATHER_ICON_CLASSES[userDataFromApis.icon];
+  temperatureInfo.appendChild(iconEl);
 
   /* Summary */
   const summaryEl = document.createElement('div');
   const firstLetter = userDataFromApis.summary.substr(0, 1);
   const tail = userDataFromApis.summary.substr(1).toLowerCase();
   summaryEl.innerText = firstLetter + tail;
-  summaryEl.className = 'summary';
+  summaryEl.className = 'summary-text';
   summaryBlock.appendChild(summaryEl);
 
   /* apparentTemperature */
@@ -88,9 +102,10 @@ export function createCurrentTemperatureDom(userDataFromApis) {
   humidityEl.className = 'humidity';
   summaryBlock.appendChild(humidityEl);
 
-  infoContainer.appendChild(temperatureInfo);
+  temperatureInfo.appendChild(summaryBlock);
+
   infoContainer.appendChild(cityAndDate);
-  infoContainer.appendChild(summaryBlock);
+  infoContainer.appendChild(temperatureInfo);
 
   const mainContainer = document.querySelector('content');
   mainContainer.appendChild(infoContainer);
@@ -98,7 +113,7 @@ export function createCurrentTemperatureDom(userDataFromApis) {
 
 export function createMapDom(userDataFromApis) {
   const currentLangConstObj = CONSTANTS[userDataFromApis.userLanguage];
-  const convertedDMS = conversDMS(userDataFromApis);
+  const convertedDMS = convertDMS(userDataFromApis);
 
   const mapElsContainer = document.createDocumentFragment();
   const mapContainer = document.querySelector('map');
@@ -128,6 +143,7 @@ export function createThreeDayTempDom(userDataFromApis) {
   const currentLangConstObj = CONSTANTS[userDataFromApis.userLanguage];
 
   const threeDayInfoContainer = document.createElement('div');
+  threeDayInfoContainer.classList.add('three-day-temperature');
 
   for (let i = 1; i < 4; i += 1) {
     let threeWeekDay;
@@ -139,19 +155,7 @@ export function createThreeDayTempDom(userDataFromApis) {
     }
 
     const singleDayInfoContainer = document.createElement('div');
-
-    /* Icon */
-
-    const iconEl = document.createElement('span');
-    iconEl.className = WEATHER_ICON_CLASSES[userDataFromApis.nextWeekWeather[i].icon];
-    singleDayInfoContainer.appendChild(iconEl);
-
-    /* Temperature */
-
-    const tempEl = document.createElement('div');
-    tempEl.innerText = Math.round(userDataFromApis.nextWeekWeather[i].temperatureMax) + '°';
-    tempEl.className = 'temperature';
-    singleDayInfoContainer.appendChild(tempEl);
+    singleDayInfoContainer.classList.add('single-day-temperature');
 
     /* Week day */
 
@@ -159,6 +163,17 @@ export function createThreeDayTempDom(userDataFromApis) {
     weekDayEl.innerText = threeWeekDay;
     weekDayEl.className = 'week-day';
     singleDayInfoContainer.appendChild(weekDayEl);
+
+    /* Icon */
+
+    const iconEl = `<span class="icon ${WEATHER_ICON_CLASSES[userDataFromApis.nextWeekWeather[i].icon]}"></span>`;
+
+    /* Temperature */
+
+    const tempEl = document.createElement('div');
+    tempEl.innerHTML = `${Math.round(userDataFromApis.nextWeekWeather[i].temperatureMax)}${degreeUnit}${iconEl}`;
+    tempEl.className = 'temperature';
+    singleDayInfoContainer.appendChild(tempEl);
 
     threeDayInfoContainer.appendChild(singleDayInfoContainer);
   }
@@ -208,7 +223,7 @@ export function createControlsBlock(languagesArr) {
   switchLangIcon.className = 'icon-arrow';
   switchLangIcon.classList.add('rotate');
 
-  currentLangSelection.textContent = `${languagesArr[0]}`;
+  currentLangSelection.textContent = `${languagesArr[0]} `;
 
   switchLangEl.appendChild(switchLangSelector);
   switchLangEl.appendChild(currentLangSelection);
@@ -252,7 +267,7 @@ export function createSearchBlock() {
 
   const searchButton = document.createElement('input');
   searchButton.setAttribute('type', 'submit');
-  searchButton.innerText = 'Search';
+  searchButton.value = 'SEARCH';
   searchForm.appendChild(searchButton);
 
   searchElContainer.appendChild(searchForm);

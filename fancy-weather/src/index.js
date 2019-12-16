@@ -65,7 +65,8 @@ async function init(lang, unitSystem) {
     searchCity(gatherUserDataFromApi);
 
 
-    gatherUserDataFromApi.usersTimeDomEl = document.querySelector('.date-and-time');
+    gatherUserDataFromApi.usersDayDomEl = document.querySelector('.date');
+    gatherUserDataFromApi.usersTimeDomEl = document.querySelector('.time');
     timeCounter(gatherUserDataFromApi);
 
   } catch (e) {

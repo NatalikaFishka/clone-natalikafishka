@@ -8,6 +8,7 @@ export default function timeConverter(unixTimestamp, lang) {
   const hour = a.getHours();
   let min = a.getMinutes();
   min = (min < 10 ? '0' : '') + min;
-  const time = date + ' ' + month + ' ' + hour + ':' + min;
-  return time;
+  const currentDate = `${date} ${month}`;
+  const time = `${hour}:${min}`;
+  return { currentDate, time };
 }

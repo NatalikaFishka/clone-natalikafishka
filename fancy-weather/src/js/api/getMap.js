@@ -14,17 +14,10 @@ export class YaMaps {
     ymaps.ready(() => {
       this.map = new ymaps.Map('map', {
         center: [userObj.latitude, userObj.longitude],
-        zoom: 12,
+        zoom: 10,
         controls: [],
       });
       this.map.behaviors.disable(['drag']);
-      const markOnTheMap = new ymaps.GeoObject({
-        geometry: {
-          type: 'Point',
-          coordinates: [userObj.latitude, userObj.longitude],
-        },
-      });
-      this.map.geoObjects.add(markOnTheMap);
     });
   }
 }
