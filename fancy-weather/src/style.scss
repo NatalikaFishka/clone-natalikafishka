@@ -303,11 +303,12 @@ content {
       display: flex;
       font-size: 20rem;
       line-height: 20rem;
+      position: relative;
     }
     span {
       font-size: 10rem;
       position: absolute;
-      left: 50%;
+      left: 100%;
       color: $cloudColor;
       &.degree-unit {
         position: initial;
@@ -353,9 +354,103 @@ content {
         "controls search"
         "content content"
         "map map";
+    width: 100%;
+    padding: 0;
+    gap: 0;
+    search {
+      margin: 2rem 0;
+      width: 90%;
+    }
+    content {
+      margin: 4rem 0;
+      width: 80%;
+      .current-temperature {
+        margin: 4rem 0;
+        .temperature {
+          font-size: 20vw;
+          line-height: initial;
+          span {
+            top: -5vh;
+            font-size: 20vw;
+          }
+          .degree-unit {
+            font-size: 15vw;
+          }
+        }
+      }
+    }
+  }
+}
 
+@media only screen and (max-width: 640px) {
+  body {
+    grid-template: 1fr / 1fr;
+    justify-items: center;
+    grid-template-areas:
+        "search"
+        "controls"
+        "content"
+        "map";
+    width: 100%;
+    padding: 0;
+    search {
+      margin-top: 1rem;
+      width: 90%;
+    }
     content {
       margin: 0;
+      width: 90%;
+      .city-and-date {
+        margin-top: 2rem;
+      }
+      .current-temperature {
+        flex-direction: column;
+        margin-top: 5rem;
+        .temperature {
+          font-size: 50vw;
+          line-height: initial;
+          span {
+            font-size: 50vw;
+            top: -5vh;
+            left: 50%;
+          }
+          .degree-unit {
+            font-size: 50vw;
+          }
+        }
+        .summary {
+          align-self: flex-start;;
+          margin-left: 0;
+          font-size: 5vw;
+        }
+      }
+      .three-day-temperature {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        font-size: 5vw;
+        .single-day-temperature {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 90%;
+          .temperature {
+            font-size: 12vw;
+
+          }
+        }
+      }
+    }
+    map {
+      margin-bottom: 1rem;
+      #yamaps-map {
+        width: 310px;
+        height: 310px;
+        #map {
+          width: 310px;
+          height: 350px;
+        }
+      }
     }
   }
 }

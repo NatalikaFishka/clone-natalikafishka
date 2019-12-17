@@ -60,18 +60,16 @@ export function createCurrentTemperatureDom(userDataFromApis) {
   timeEl.className = 'time';
   cityAndDate.appendChild(timeEl);
 
+  /* Icon */
+
+  const iconEl = `<span class="${WEATHER_ICON_CLASSES[userDataFromApis.icon]}"></span>`;
+
   /* Temperature */
 
   const tempEl = document.createElement('div');
-  tempEl.innerHTML = `${Math.round(userDataFromApis.temperature)}${degreeUnit}`;
+  tempEl.innerHTML = `${Math.round(userDataFromApis.temperature)}${degreeUnit}${iconEl}`;
   tempEl.className = 'temperature';
   temperatureInfo.appendChild(tempEl);
-
-  /* Icon */
-
-  const iconEl = document.createElement('span');
-  iconEl.className = WEATHER_ICON_CLASSES[userDataFromApis.icon];
-  temperatureInfo.appendChild(iconEl);
 
   /* Summary */
   const summaryEl = document.createElement('div');

@@ -11,18 +11,20 @@ export default async function getSearchResults(searchInput, userObj) {
     return alert(`No results for ${searchInput} received. Please try different input.`);
   }
   const responseJsonArr = [...responseJson.results];
-  let neededComponentIndex = responseJsonArr.find((curr) => (curr.components._type === 'city' || curr.components._type === 'state_district'));
+  let neededComponentIndex = responseJsonArr.find((curr) => (curr.components._type === 'city' || curr.components._type === 'state_district' || curr.components._type === 'state'));
 
   if (!neededComponentIndex) {
     neededComponentIndex = [...responseJson.results[0]];
   }
   const { components, annotations, geometry } = neededComponentIndex;
-  if (!(components._type === 'city' || components._type === 'state_district')) {
+  if (!(components._type === 'city' || components._type === 'state_district' || components._type === 'state')) {
     return alert(`No results for ${searchInput} received. Please try different input.`);
   }
 
   if (components._type === 'city') {
     newUserObj.city = components.city;
+  } else if (components._type === 'state') {
+    newUserObj.city = components.state;
   } else {
     newUserObj.city = components.state_district;
   }
