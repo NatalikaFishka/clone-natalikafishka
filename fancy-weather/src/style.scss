@@ -84,7 +84,7 @@
 
 $whitePrimary: rgba(255, 255, 255, 1);
 $hoverBackColor: rgba(174, 181, 185, 1);
-$backOverlay: rgba(8, 15, 26, 1);
+$backOverlay: rgba(8, 15, 26, 0.7);
 $lightGray: rgba(255,255,255, 0.3);
 $darkGray: rgba(255,255,255,0.1);
 $fontPrimary: 'Montserrat Medium';
@@ -94,32 +94,32 @@ html {
 color: $whitePrimary;
 font-family: $fontPrimary;
 background-size: cover;
-background-position: center;
-&::after {
+background-attachment: fixed;
+&:after {
   content: "";
   background-color: $backOverlay;
-  opacity: 0.7;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
-  position: absolute;
+  position: fixed;
   z-index: -1;
 }
 }
 
 body {
   display: grid;
-  grid-template: 20% max-content / minmax(max-content, 40%) max-content;
+  grid-template: 20% max-content / minmax(max-content, 900px) max-content;
   align-items: center;
   grid-template-areas:
       "controls search"
       "content map";
-  gap: 2rem;
+  // gap: 2rem;
   width: max-content;
   height: 100%;
   margin: 0 auto;
-  padding: 2rem;
+  // padding: 2rem;
+  max-width: 100%;
 }
 
 controls {
@@ -127,6 +127,8 @@ controls {
   font-size: 0.8rem;
   display: flex;
   height: 2.5rem;
+  margin-left: 2rem;
+
   .load-image {
     width: 2.5rem;
     height: 2.5rem;
@@ -143,6 +145,17 @@ controls {
     &:hover {
       cursor: pointer;
     }
+    .spin {
+      animation: rotation 2s infinite linear;
+    }
+    @keyframes rotation {
+      from {
+          transform: rotate(0deg);
+      }
+      to {
+          transform: rotate(359deg);
+      }
+  }
   }
   .language-selection-set {
     display: flex;
@@ -230,6 +243,7 @@ map {
   flex-direction: column;
   align-items: flex-end;
   font-size: 1.2rem;
+  margin: 0 2rem;
   #yamaps-map {
     width: 400px;
     height: 400px;
@@ -250,7 +264,7 @@ map {
 search {
   grid-area: search;
   font-size: 0.8rem;
-  width: 100%;
+  width: 90%;
   justify-self: center;
   form {
     height: 2.5rem;
@@ -289,7 +303,7 @@ search {
 
 content {
   grid-area: content;
-  margin-right: 3rem;
+  margin: 0 3rem 0 2rem;
   .city-and-date {
     font-size: 1.3rem;
     .city {
@@ -361,7 +375,7 @@ content {
   }
 }
 
-@media only screen and (max-width: 1025px) {
+@media only screen and (max-width: 1100px) {
   body {
     grid-template: 1fr / 1fr 1fr;
     justify-items: center;
@@ -372,6 +386,9 @@ content {
     width: 100%;
     padding: 0;
     gap: 0;
+    controls {
+      margin: 0;
+    }
     search {
       margin: 2rem 0;
       width: 90%;
@@ -391,6 +408,18 @@ content {
           .degree-unit {
             font-size: 15vw;
           }
+        }
+      }
+    }
+    map {
+      margin: 0;
+      width: 85%;
+      #yamaps-map {
+        width: 100%;
+        height: 400px;
+        #map {
+          width: 100%;
+          height: 450px;
         }
       }
     }
@@ -459,10 +488,10 @@ content {
     map {
       margin-bottom: 1rem;
       #yamaps-map {
-        width: 310px;
+        width: 100%;
         height: 310px;
         #map {
-          width: 310px;
+          width: 100%;
           height: 350px;
         }
       }
