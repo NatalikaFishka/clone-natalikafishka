@@ -91,9 +91,21 @@ $fontPrimary: 'Montserrat Medium';
 $cloudColor: #E4E3E3;
 
 html {
-background-color: $backOverlay;
 color: $whitePrimary;
 font-family: $fontPrimary;
+background-size: cover;
+background-position: center;
+&::after {
+  content: "";
+  background-color: $backOverlay;
+  opacity: 0.7;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
 }
 
 body {
@@ -128,6 +140,9 @@ controls {
     border-radius: 5px;
     background-size: contain;
     margin: 0 0.5rem;
+    &:hover {
+      cursor: pointer;
+    }
   }
   .language-selection-set {
     display: flex;

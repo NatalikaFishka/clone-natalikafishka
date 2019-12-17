@@ -2,6 +2,7 @@ import getWeatherForecast from '../api/getWeather';
 import { createCurrentTemperatureDom, createThreeDayTempDom, createMapDom } from '../createDom';
 import getCountry from '../api/getCountry';
 import { createHeadMapScript, YaMaps } from '../api/getMap';
+import getImage from '../api/getImage';
 
 export default async function setContentPerUserSettings(userObj) {
   const newUserObj = userObj;
@@ -49,4 +50,7 @@ export default async function setContentPerUserSettings(userObj) {
 
   // set time counter
   newUserObj.usersTimeDomEl = document.querySelector('.time');
+
+  // Load new back image
+  getImage(newUserObj);
 }
