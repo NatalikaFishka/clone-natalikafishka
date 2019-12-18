@@ -21,8 +21,10 @@ export default function unitSelector(userObj) {
       const mergedArr = classListOfSelection.concat(possibleUnitSystems);
       e.target.classList.add(SELECTED_UNIT_CLASS);
       newUserObj.userUnitSystem = mergedArr.find((curr) => {
-        return (mergedArr.indexOf(curr) !== mergedArr.lastIndexOf(curr));
-      })
+        const firstIndex = mergedArr.indexOf(curr);
+        const lastIndex = mergedArr.lastIndexOf(curr);
+        return firstIndex !== lastIndex;
+      });
     }
     switchUnits(newUserObj);
   });

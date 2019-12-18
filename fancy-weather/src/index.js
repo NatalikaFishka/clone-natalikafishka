@@ -30,49 +30,47 @@ const defaultSettings = {
   units: possibleUnitsSystems[1],
 };
 
+const gatherUserDataFromApi = {};
+
 async function init(lang, unitSystem) {
   try {
     createHeadMapScript(lang);
     createMainDomStructure();
     const { loc, timezone } = await getUserLocation();
+
+    gatherUserDataFromApi.locationCoordinates = loc;
+    gatherUserDataFromApi.timezone = timezone;
+    gatherUserDataFromApi.userLanguage = lang;
+    gatherUserDataFromApi.userUnitSystem = unitSystem;
+
     const timeData = await getTime(timezone);
     const {
       latitude,
       longitude,
       currently,
       daily,
-    } = await getWeatherForecast(loc, lang, unitSystem);
-    const {
-      summary,
-      icon,
-      temperature,
-      apparentTemperature,
-      humidity,
-      windSpeed,
-    } = currently;
+    } = await getWeatherForecast(gatherUserDataFromApi);
+
+    gatherUserDataFromApi.latitude = latitude;
+    gatherUserDataFromApi.longitude = longitude;
+    gatherUserDataFromApi.nextWeekWeather = daily.data;
+
+    gatherUserDataFromApi.summary = currently.summary;
+    gatherUserDataFromApi.icon = currently.summary;
+    gatherUserDataFromApi.temperature = currently.temperature;
+    gatherUserDataFromApi.apparentTemperature = currently.apparentTemperature;
+    gatherUserDataFromApi.humidity = currently.humidity;
+    gatherUserDataFromApi.windSpeed = currently.windSpeed;
+
     const { city, country } = await getCountry(latitude, longitude, lang);
 
-    const gatherUserDataFromApi = {
-      userUnitSystem: unitSystem,
-      userLanguage: lang,
-      locationCoordinates: loc,
-      userCity: city,
-      userCountry: country,
-      timezone,
-      latitude,
-      longitude,
-      summary,
-      icon,
-      temperature,
-      apparentTemperature,
-      humidity,
-      windSpeed,
-      currentWeekDay: timeData.day_of_week,
-      nextWeekWeather: daily.data,
-      currentUnixTime: timeData.unixtime,
-      userUtcOffset: timeData.raw_offset,
-      searchUtcOffset: timeData.raw_offset,
-    };
+    gatherUserDataFromApi.userCity = city;
+    gatherUserDataFromApi.userCountry = country;
+
+    gatherUserDataFromApi.currentWeekDay = timeData.dayOfWeek;
+    gatherUserDataFromApi.currentUnixTime = timeData.unixtime;
+    gatherUserDataFromApi.userUtcOffset = timeData.rowOffset;
+    gatherUserDataFromApi.searchUtcOffset = timeData.rowOffset;
 
     createCurrentTemperatureDom(gatherUserDataFromApi);
     createMapDom(gatherUserDataFromApi);

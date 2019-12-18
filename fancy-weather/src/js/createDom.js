@@ -239,7 +239,8 @@ export function createControlsBlock(languagesArr) {
     const unitContainer = document.createElement('div');
     unitContainer.classList.add('unit-system');
     unitContainer.classList.add(units[0]);
-    unitContainer.innerText = units[1];
+    const unitString = units[1];
+    unitContainer.innerText = unitString;
     switchUnitsEl.appendChild(unitContainer);
   });
 

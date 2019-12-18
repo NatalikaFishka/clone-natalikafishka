@@ -13,11 +13,12 @@ export default function languageSelector(userObj) {
     selectorArrow.classList.toggle('rotate');
     const possibleLangValues = Object.values(LANGUAGES);
     const possibleLangKeys = Object.keys(LANGUAGES);
-    if (possibleLangValues.includes(e.target.innerHTML) && e.target.innerHTML !== currentLang.innerHTML) {
+    const targetText = e.target.innerHTML;
+    if (possibleLangValues.includes(targetText) && targetText !== currentLang.innerHTML) {
       currentLang.innerHTML = e.target.innerHTML;
       const newUserObj = userObj;
       newUserObj.userLanguage = possibleLangKeys[possibleLangValues.indexOf(currentLang.innerHTML)];
       await setContentPerUserSettings(newUserObj);
-    };
+    }
   });
 }

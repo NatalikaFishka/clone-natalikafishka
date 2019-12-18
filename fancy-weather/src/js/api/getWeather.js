@@ -1,5 +1,5 @@
 import { WEATHER_TOKEN } from '../../constants/tokens';
 
-export default async function getWeatherForecast(locationCoordinates, lang, unitSystem) {
-  return fetch(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${WEATHER_TOKEN}/${locationCoordinates}?units=${unitSystem}&lang=${lang}`).then(response => response.json());
+export default async function getWeatherForecast(userObj) {
+  return fetch(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${WEATHER_TOKEN}/${userObj.locationCoordinates}?units=${userObj.userUnitSystem}&lang=${userObj.userLanguage}`).then((response) => response.json());
 }

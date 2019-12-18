@@ -1,4 +1,4 @@
-import { CONSTANTS } from '../../constants/constants'
+import { CONSTANTS } from '../../constants/constants';
 
 export default function timeConverter(userObj) {
   const monthLangArr = CONSTANTS[userObj.userLanguage].months;

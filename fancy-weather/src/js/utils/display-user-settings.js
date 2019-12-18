@@ -6,11 +6,13 @@ import { createHeadMapScript, YaMaps } from '../api/getMap';
 export default async function setContentPerUserSettings(userObj) {
   const newUserObj = userObj;
 
-  const { latitude, longitude, userLanguage, locationCoordinates, userUnitSystem } = newUserObj;
+  const {
+    latitude, longitude, userLanguage,
+  } = newUserObj;
 
   // perform new API request to get info with selected language and set it to user object
 
-  const { currently } = await getWeatherForecast(locationCoordinates, userLanguage, userUnitSystem);
+  const { currently } = await getWeatherForecast(newUserObj);
   const { city, country } = await getCountry(latitude, longitude, userLanguage);
 
   // set new info to user object
@@ -34,7 +36,7 @@ export default async function setContentPerUserSettings(userObj) {
   newUserObj.currentMap.map.destroy();
   let headMapScript = document.querySelector('#map-script');
   headMapScript.remove();
-  let mapDomElement = document.querySelector('map');
+  const mapDomElement = document.querySelector('map');
   mapDomElement.innerHTML = '';
 
   // create new map instance

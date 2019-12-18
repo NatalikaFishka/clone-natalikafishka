@@ -3,7 +3,7 @@ import setContentPerUserSettings from '../utils/display-user-settings';
 import getTime from './getTime';
 import getWeatherForecast from './getWeather';
 import ToastService from '../utils/toast-service';
-import getImage from '../api/getImage';
+import getImage from './getImage';
 
 export default async function getSearchResults(searchInput, userObj) {
   const newUserObj = userObj;
@@ -14,7 +14,7 @@ export default async function getSearchResults(searchInput, userObj) {
     return;
   }
   const responseJsonArr = [...responseJson.results];
-  let neededComponentIndex = responseJsonArr.find((curr) => (curr.components._type === 'city' || curr.components._type === 'state_district' || curr.components._type === 'state'));
+  const neededComponentIndex = responseJsonArr.find((curr) => (curr.components._type === 'city' || curr.components._type === 'state_district' || curr.components._type === 'state'));
 
 
   if (!neededComponentIndex) {
@@ -37,13 +37,18 @@ export default async function getSearchResults(searchInput, userObj) {
   newUserObj.longitude = geometry.lng;
   newUserObj.locationCoordinates = `${geometry.lat},${geometry.lng}`;
 
-  const { raw_offset, unixtime, day_of_week } = await getTime(newUserObj.timezone);
-  newUserObj.unixtime = unixtime;
-  newUserObj.currentWeekDay = day_of_week;
-  newUserObj.searchUtcOffset = raw_offset;
+  const timeObj = await getTime(newUserObj.timezone);
+  newUserObj.unixtime = timeObj.unixtime;
+  newUserObj.currentWeekDay = timeObj.dayOfWeek;
+  newUserObj.searchUtcOffset = timeObj.rowOffset;
 
-  const { currently, daily } = await getWeatherForecast(newUserObj.locationCoordinates, newUserObj.userLanguage, newUserObj.userUnitSystem);
-  const { summary, icon, temperature, apparentTemperature, humidity, windSpeed } = currently;
+  const {
+    currently,
+    daily,
+  } = await getWeatherForecast(newUserObj);
+  const {
+    summary, icon, temperature, apparentTemperature, humidity, windSpeed,
+  } = currently;
 
   newUserObj.summary = summary;
   newUserObj.icon = icon;

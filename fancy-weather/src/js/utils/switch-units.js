@@ -4,8 +4,7 @@ import { createCurrentTemperatureDom, createThreeDayTempDom } from '../createDom
 export default async function switchUnits(userObj) {
   const newUserObj = userObj;
 
-  const { userLanguage, locationCoordinates, userUnitSystem } = newUserObj;
-  const { currently, daily } = await getWeatherForecast(locationCoordinates, userLanguage, userUnitSystem);
+  const { currently, daily } = await getWeatherForecast(newUserObj);
   const { temperature, apparentTemperature } = currently;
 
   newUserObj.temperature = temperature;

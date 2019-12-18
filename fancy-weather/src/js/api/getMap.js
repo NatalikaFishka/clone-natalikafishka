@@ -1,4 +1,4 @@
-import { YANDEX_GEOCODER_TOKEN } from './../../constants/tokens';
+import { YANDEX_GEOCODER_TOKEN } from '../../constants/tokens';
 
 export function createHeadMapScript(lang) {
   const mapScript = document.createElement('script');
