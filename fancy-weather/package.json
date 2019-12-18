@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "lint": "./node_modules/.bin/eslint --ext .js src/",
+    "lint": "./node_modules/.bin/eslint --ext .js src/ --fix",
     "start:dev": "webpack-dev-server"
   },
   "keywords": [],

@@ -11,8 +11,8 @@ export function createHeadMapScript(lang) {
 
 export class YaMaps {
   init(userObj) {
-    ymaps.ready(() => {
-      this.map = new ymaps.Map('map', {
+    window.ymaps.ready(() => {
+      this.map = new window.ymaps.Map('map', {
         center: [userObj.latitude, userObj.longitude],
         zoom: 10,
         controls: [],
