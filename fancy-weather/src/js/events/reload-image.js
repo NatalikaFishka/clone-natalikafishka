@@ -7,6 +7,6 @@ export default function reloadImageByBtn(userObj) {
   reloadImageBtn.addEventListener('click', async () => {
     reloadImageBtnIcon.classList.add('spin');
     await getImage(newUserObj);
-    setTimeout(() => reloadImageBtnIcon.classList.remove('spin'), 3000);
+    setTimeout(() => reloadImageBtnIcon.classList.remove('spin'), 2000);
   });
 }

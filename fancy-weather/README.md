@@ -3,19 +3,17 @@
 1. Install dependencies
 
 ```bash
-  npm install
+  npm i
 ```
 
-2. Run frontend app
+2. Build frontend app
 
 ```bash
-  npm run start:dev
+  npm run build
 ```
 
-3. Run backend app (in a separate terminal tab/window)
+3. Run frontend app
 
 ```
   npm run dev:server
 ```
-
-4. Go to [http://localhost:1234](http://localhost:1234)

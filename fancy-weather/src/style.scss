@@ -89,12 +89,14 @@ $lightGray: rgba(255,255,255, 0.3);
 $darkGray: rgba(255,255,255,0.1);
 $fontPrimary: 'Montserrat Medium';
 $cloudColor: #E4E3E3;
+$popDark: #53575F;
 
 html {
 color: $whitePrimary;
 font-family: $fontPrimary;
 background-size: cover;
 background-attachment: fixed;
+background-position: center;
 &:after {
   content: "";
   background-color: $backOverlay;
@@ -114,12 +116,45 @@ body {
   grid-template-areas:
       "controls search"
       "content map";
-  // gap: 2rem;
   width: max-content;
   height: 100%;
   margin: 0 auto;
-  // padding: 2rem;
   max-width: 100%;
+
+  .toast-container {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    padding: 10px;
+    background: $popDark;
+    font-size: 0.8rem;
+    border: 1px solid $lightGray;
+    border-radius: 5px;
+    animation: slide 1s forwards ease-out;
+    display: flex;
+    align-items: center;
+
+    @keyframes slide {
+      from {
+        transform: translateX(100%);
+      }
+      to {
+        transform: translateX(0%);
+      }
+      }
+    button {
+      cursor: pointer;
+      background-color: $lightGray;
+      border: none;
+      outline: none;
+      border-radius: 5px;
+      color: $whitePrimary;
+      margin: 0.5rem;
+      width: 2rem;
+      height: 2rem;
+      font-size: 1rem;
+    }
+  }
 }
 
 controls {
@@ -146,7 +181,7 @@ controls {
       cursor: pointer;
     }
     .spin {
-      animation: rotation 2s infinite linear;
+      animation: rotation 2s linear;
     }
     @keyframes rotation {
       from {
@@ -184,7 +219,7 @@ controls {
     }
     .language-droplist {
       position: absolute;
-      background-color: #53575F;
+      background-color: $popDark;
       width: 100%;
       align-self: flex-start;
       top: 2.5rem;
@@ -496,5 +531,8 @@ content {
         }
       }
     }
+  }
+  .toast-container {
+    left: 25px;
   }
 }

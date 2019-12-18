@@ -93,9 +93,8 @@ async function init(lang, unitSystem) {
     gatherUserDataFromApi.usersDayDomEl = document.querySelector('.date');
     gatherUserDataFromApi.usersTimeDomEl = document.querySelector('.time');
     timeCounter(gatherUserDataFromApi);
-
   } catch (e) {
-    console.log(e);
+    throw new Error(e);
   }
 }
 
