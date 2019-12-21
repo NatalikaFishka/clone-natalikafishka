@@ -20,6 +20,7 @@ import unitSelector from './js/events/units-selector';
 import searchCity from './js/events/search-form-submit';
 import getImage from './js/api/getImage';
 import reloadImageByBtn from './js/events/reload-image';
+import activateSpeachRecognition from './js/events/activate-speach-recognition';
 
 const possibleLanguages = Object.keys(LANGUAGES);
 const possibleLanguagesValues = Object.values(LANGUAGES);
@@ -56,7 +57,7 @@ async function init(lang, unitSystem) {
     gatherUserDataFromApi.nextWeekWeather = daily.data;
 
     gatherUserDataFromApi.summary = currently.summary;
-    gatherUserDataFromApi.icon = currently.summary;
+    gatherUserDataFromApi.icon = currently.icon;
     gatherUserDataFromApi.temperature = currently.temperature;
     gatherUserDataFromApi.apparentTemperature = currently.apparentTemperature;
     gatherUserDataFromApi.humidity = currently.humidity;
@@ -82,8 +83,9 @@ async function init(lang, unitSystem) {
     unitSelector(gatherUserDataFromApi);
     languageSelector(gatherUserDataFromApi);
 
-    createSearchBlock();
+    createSearchBlock(gatherUserDataFromApi);
     searchCity(gatherUserDataFromApi);
+    activateSpeachRecognition(gatherUserDataFromApi);
 
     await getImage(gatherUserDataFromApi);
     reloadImageByBtn(gatherUserDataFromApi);

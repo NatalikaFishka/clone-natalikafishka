@@ -1,4 +1,8 @@
 import setContentPerUserSettings from '../utils/display-user-settings';
+import activateSpeachRecognition from './activate-speach-recognition';
+import searchCity from './search-form-submit';
+import { createSearchBlock } from '../createDom';
+
 import { LANGUAGES } from '../../constants/constants';
 
 export default function languageSelector(userObj) {
@@ -19,6 +23,12 @@ export default function languageSelector(userObj) {
       const newUserObj = userObj;
       newUserObj.userLanguage = possibleLangKeys[possibleLangValues.indexOf(currentLang.innerHTML)];
       await setContentPerUserSettings(newUserObj);
+
+      const currentSearchForm = document.querySelector('form');
+      currentSearchForm.remove();
+      createSearchBlock(newUserObj);
+      searchCity(newUserObj);
+      activateSpeachRecognition(newUserObj);
     }
   });
 }

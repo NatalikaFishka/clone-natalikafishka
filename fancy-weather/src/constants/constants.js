@@ -42,6 +42,9 @@ export const CONSTANTS = {
     humidity: 'Humidity:',
     latitudeLabel: 'Latitude:',
     longitudeLabel: 'Longitude:',
+    searchInputPlaceholder: 'Search for city',
+    searchButtonText: 'SEARCH',
+    speachLang: 'en_US',
   },
   ru: {
     weekDay: [
@@ -82,6 +85,9 @@ export const CONSTANTS = {
     humidity: 'Влажность:',
     latitudeLabel: 'Широта:',
     longitudeLabel: 'Долгота:',
+    searchInputPlaceholder: 'Искать город',
+    searchButtonText: 'ИСКАТЬ',
+    speachLang: 'ru_RU',
   },
   be: {
     weekDay: [
@@ -122,6 +128,9 @@ export const CONSTANTS = {
     humidity: 'Вільготнасць:',
     latitudeLabel: 'Шырата:',
     longitudeLabel: 'Даўгата:',
+    searchInputPlaceholder: 'Шукаць горад',
+    searchButtonText: 'ШУКАЦЬ',
+    speachLang: 'be_BY',
   },
 };
 

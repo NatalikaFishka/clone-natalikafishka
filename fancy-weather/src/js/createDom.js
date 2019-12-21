@@ -96,7 +96,7 @@ export function createCurrentTemperatureDom(userDataFromApis) {
   /* humidity */
 
   const humidityEl = document.createElement('div');
-  humidityEl.innerText = `${currentLangConstObj.humidity} ${userDataFromApis.humidity * 100} %`;
+  humidityEl.innerText = `${currentLangConstObj.humidity} ${Math.round(userDataFromApis.humidity * 100)} %`;
   humidityEl.className = 'humidity';
   summaryBlock.appendChild(humidityEl);
 
@@ -252,21 +252,28 @@ export function createControlsBlock(languagesArr) {
   controlsContainer.appendChild(controlsElContainer);
 }
 
-export function createSearchBlock() {
+export function createSearchBlock(userDataFromApis) {
+  const currentLangConstObj = CONSTANTS[userDataFromApis.userLanguage];
+
   const searchElContainer = document.createDocumentFragment();
   const searchContainer = document.querySelector('search');
 
   const searchForm = document.createElement('form');
 
+  const micIcon = document.createElement('span');
+  micIcon.classList.add('mic-icon');
+  micIcon.classList.add('icon-mic-off');
+  searchForm.appendChild(micIcon);
+
   const searchInput = document.createElement('input');
   searchInput.setAttribute('type', 'text');
-  searchInput.setAttribute('placeholder', 'Search for city');
+  searchInput.setAttribute('placeholder', currentLangConstObj.searchInputPlaceholder);
   searchInput.setAttribute('id', 'form-input-text');
   searchForm.appendChild(searchInput);
 
   const searchButton = document.createElement('input');
   searchButton.setAttribute('type', 'submit');
-  searchButton.value = 'SEARCH';
+  searchButton.value = currentLangConstObj.searchButtonText;
   searchForm.appendChild(searchButton);
 
   searchElContainer.appendChild(searchForm);

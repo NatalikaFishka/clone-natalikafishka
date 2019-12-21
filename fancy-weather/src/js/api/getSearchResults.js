@@ -25,13 +25,13 @@ export default async function getSearchResults(searchInput, userObj) {
   const { components, annotations, geometry } = neededComponentIndex;
 
   if (components._type === 'city') {
-    newUserObj.city = components.city;
+    newUserObj.userCity = components.city;
   } else if (components._type === 'state') {
-    newUserObj.city = components.state;
+    newUserObj.userCity = components.state;
   } else {
-    newUserObj.city = components.state_district;
+    newUserObj.userCity = components.state_district;
   }
-  newUserObj.country = components.country;
+  newUserObj.userCountry = components.country;
   newUserObj.timezone = annotations.timezone.name;
   newUserObj.latitude = geometry.lat;
   newUserObj.longitude = geometry.lng;
@@ -58,6 +58,6 @@ export default async function getSearchResults(searchInput, userObj) {
   newUserObj.windSpeed = windSpeed;
   newUserObj.nextWeekWeather = daily.data;
 
-  getImage(newUserObj);
   setContentPerUserSettings(newUserObj);
+  getImage(newUserObj);
 }

@@ -303,6 +303,17 @@ search {
   justify-self: center;
   form {
     height: 2.5rem;
+    position: relative;
+    display: flex;
+    .mic-icon {
+      position: absolute;
+      font-size: 1rem;
+      align-self: center;
+      left: 68%;
+      &:hover {
+        cursor: pointer;
+      }
+    }
   input[type=text] {
     outline: none;
     background-color: $darkGray;
